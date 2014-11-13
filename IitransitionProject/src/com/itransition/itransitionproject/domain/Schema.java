@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "SHEMA")
+@Table(name = "SCHEMAS")
 public class Schema {
 	
 	@Id
@@ -21,10 +21,10 @@ public class Schema {
 	@Column(name = "PARAM")
 	private String parameters;
 	
-	@Column(name = "SUM_RATING")
+	@Column(name = "SUM_RAITING")
 	private Integer sumRaiting;
 	
-	@Column(name = "COUT_USERS")
+	@Column(name = "COUNT_USERS")
 	private Integer countUsers;
 
 	public Integer getId() {
@@ -66,7 +66,4 @@ public class Schema {
 	public void setCountUsers(Integer countUsers) {
 		this.countUsers = countUsers;
 	}
-	
-	
-
 }

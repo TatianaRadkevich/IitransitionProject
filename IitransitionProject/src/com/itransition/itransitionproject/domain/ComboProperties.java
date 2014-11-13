@@ -6,21 +6,14 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-
 @Entity
-@Table(name = "THINGS")
-public class Thing {
+@Table(name = "COMBOPROPERTIES")
+public class ComboProperties {
 	
-    @Id
-    @Column(name = "ID")
-    @GeneratedValue
-    private Integer id;
-	
-	@Column(name = "NAME_THING")
-	private String nameThing;
-	
-	@Column(name = "IMAGE_REF")
-	private String imageReference;
+	@Id
+	@GeneratedValue
+	@Column(name = "id")
+	private Integer id;
 	
 	@Column(name = "LIST_PROPERTIES")
 	private String listProperties;
@@ -31,22 +24,6 @@ public class Thing {
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public String getNameThing() {
-		return nameThing;
-	}
-
-	public void setNameThing(String nameThing) {
-		this.nameThing = nameThing;
-	}
-
-	public String getImageReference() {
-		return imageReference;
-	}
-
-	public void setImageReference(String imageReference) {
-		this.imageReference = imageReference;
 	}
 
 	public String getListProperties() {
