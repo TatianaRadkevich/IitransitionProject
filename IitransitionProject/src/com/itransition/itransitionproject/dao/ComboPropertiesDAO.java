@@ -8,6 +8,8 @@ public interface ComboPropertiesDAO {
 	
 	public void addComboProperties(ComboProperties comboProperties);
 	
+	public ComboProperties getComboProperties(Integer id);
+	
 	public List<ComboProperties> listComboProperties();
 	
 	public void removeComboProperties(Integer id);

@@ -21,6 +21,11 @@ public class ClientThingServiceImpl implements ClientThingService {
     }
  
     @Transactional
+    public ClientThing getClientThing(Integer id) {
+    	return clientThingDAO.getClientThing(id);
+    }
+    
+    @Transactional
     public List<ClientThing> listClientThing() { 
         return clientThingDAO.listClientThing();
     }

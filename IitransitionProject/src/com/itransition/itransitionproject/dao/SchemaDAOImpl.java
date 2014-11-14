@@ -17,6 +17,10 @@ public class SchemaDAOImpl implements SchemaDAO {
     public void addSchema(Schema schema) {
         sessionFactory.getCurrentSession().save(schema);
     }
+    
+    public Schema getSchema(Integer id) {
+    	return (Schema) sessionFactory.getCurrentSession().load(Schema.class, id);
+    }
 
     @SuppressWarnings("unchecked")
     public List<Schema> listSchema() {

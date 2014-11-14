@@ -19,6 +19,11 @@ public class SchemaServiceImpl implements SchemaService {
     public void addSchema(Schema schema) {
     	schemaDAO.addSchema(schema);
     }
+    
+    @Transactional
+    public Schema getSchema(Integer id) {
+    	return schemaDAO.getSchema(id);
+    }
  
     @Transactional
     public List<Schema> listSchema() { 

@@ -6,7 +6,9 @@ import com.itransition.itransitionproject.domain.ComboProperties;
 
 public interface ComboPropertiesService {
 	
-public void addComboProperties(ComboProperties comboProperties);
+	public void addComboProperties(ComboProperties comboProperties);
+	
+	public ComboProperties getComboProperties(Integer id);
 	
 	public List<ComboProperties> listComboProperties();
 	

@@ -17,6 +17,10 @@ public class ClientThingDAOImpl implements ClientThingDAO {
     public void addClientThing(ClientThing clientThing) {
         sessionFactory.getCurrentSession().save(clientThing);
     }
+    
+    public ClientThing getClientThing(Integer id) {
+    	return (ClientThing) sessionFactory.getCurrentSession().load(ClientThing.class, id);
+    }
 
     @SuppressWarnings("unchecked")
     public List<ClientThing> listClientThing() {

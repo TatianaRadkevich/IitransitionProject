@@ -19,6 +19,11 @@ public class ThingServiceImpl implements ThingService {
     public void addThing(Thing thing) {
     	thingDAO.addThing(thing);
     }
+    
+    @Transactional
+    public Thing getThing(Integer id) {
+    	return thingDAO.getThing(id);
+    }
  
     @Transactional
     public List<Thing> listThing() { 

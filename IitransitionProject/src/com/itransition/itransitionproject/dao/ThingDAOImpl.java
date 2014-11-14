@@ -17,6 +17,10 @@ public class ThingDAOImpl implements ThingDAO {
     public void addThing(Thing thing) {
         sessionFactory.getCurrentSession().save(thing);
     }
+    
+    public Thing getThing(Integer id) {
+    	return (Thing) sessionFactory.getCurrentSession().load(Thing.class, id);
+    }
 
     @SuppressWarnings("unchecked")
     public List<Thing> listThing() {

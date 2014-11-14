@@ -17,6 +17,10 @@ public class ComboPropertiesDAOImpl implements ComboPropertiesDAO {
     public void addComboProperties(ComboProperties comboProperties) {
         sessionFactory.getCurrentSession().save(comboProperties);
     }
+    
+    public ComboProperties getComboProperties(Integer id) {
+    	return (ComboProperties) sessionFactory.getCurrentSession().load(ComboProperties.class, id);
+    }
 
     @SuppressWarnings("unchecked")
     public List<ComboProperties> listComboProperties() {

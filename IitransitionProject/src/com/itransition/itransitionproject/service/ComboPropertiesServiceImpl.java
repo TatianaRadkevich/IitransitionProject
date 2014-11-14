@@ -19,6 +19,11 @@ public class ComboPropertiesServiceImpl implements ComboPropertiesService {
     public void addComboProperties(ComboProperties comboProperties) {
     	comboPropertiesDAO.addComboProperties(comboProperties);
     }
+    
+    @Transactional
+    public ComboProperties getComboProperties(Integer id) {
+    	return comboPropertiesDAO.getComboProperties(id);
+    }
  
     @Transactional
     public List<ComboProperties> listComboProperties() { 

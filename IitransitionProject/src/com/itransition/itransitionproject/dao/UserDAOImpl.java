@@ -17,6 +17,10 @@ public class UserDAOImpl implements UserDAO {
     public void addUser(User user) {
         sessionFactory.getCurrentSession().save(user);
     }
+    
+    public User getUser(Integer id) {
+    	return (User) sessionFactory.getCurrentSession().load(User.class, id);
+    }
 
     @SuppressWarnings("unchecked")
     public List<User> listUser() {
