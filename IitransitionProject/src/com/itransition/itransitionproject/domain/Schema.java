@@ -1,9 +1,17 @@
 package com.itransition.itransitionproject.domain;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -26,6 +34,14 @@ public class Schema {
 	
 	@Column(name = "COUNT_USERS")
 	private Integer countUsers;
+	
+	@ManyToMany(mappedBy = "schemasWithClietthing", fetch = FetchType.LAZY)
+	private Set<ClientThing> clentThings;
+	
+	@ManyToOne(fetch = FetchType.LAZY, optional = true)
+	@JoinTable(name = "USER_TO_SCHEMA", joinColumns = @JoinColumn(name = "ID_SCHEMA"),
+		inverseJoinColumns = @JoinColumn(name = "ID_USERS"))
+	private User userSchema;
 
 	public Integer getId() {
 		return id;
@@ -66,4 +82,20 @@ public class Schema {
 	public void setCountUsers(Integer countUsers) {
 		this.countUsers = countUsers;
 	}
+
+	public Set<ClientThing> getClentThings() {
+		return clentThings;
+	}
+
+	public void setClentThings(Set<ClientThing> clentThings) {
+		this.clentThings = clentThings;
+	}
+
+	public User getUserSchema() {
+		return userSchema;
+	}
+
+	public void setUserSchema(User userSchema) {
+		this.userSchema = userSchema;
+	}	
 }

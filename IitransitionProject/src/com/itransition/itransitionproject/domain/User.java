@@ -1,11 +1,15 @@
 package com.itransition.itransitionproject.domain;
 
 import java.sql.Date;
+import java.util.List;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -31,6 +35,15 @@ public class User {
 
 	@Column(name = "ROLE")
 	private Integer role;
+	
+	@OneToMany(mappedBy = "userThing", fetch = FetchType.LAZY)
+	private Set<Thing> things;
+	
+	@OneToMany(mappedBy = "userClientthing", fetch = FetchType.LAZY)
+	private Set<ClientThing> clientThings;
+	
+	@OneToMany(mappedBy = "userSchema", fetch = FetchType.LAZY)
+	private Set<Schema> schemas;
 	
 	public Integer getId() {
 		return id;
@@ -78,5 +91,30 @@ public class User {
 
 	public void setRole(Integer role) {
 		this.role = role;
+	}
+
+	public Set<Thing> getThings() {
+		return things;
+	}
+
+	public void setThings(Set<Thing> things) {
+		this.things = things;
+	}
+
+	public Set<ClientThing> getClientThings() {
+		return clientThings;
+	}
+
+	public void setClientThings(Set<ClientThing> clientThings) {
+		this.clientThings = clientThings;
+	}
+
+	public Set<Schema> getSchemas() {
+		return schemas;
+	}
+
+	public void setSchemas(Set<Schema> schemas) {
+		this.schemas = schemas;
 	}	
+	
 }
