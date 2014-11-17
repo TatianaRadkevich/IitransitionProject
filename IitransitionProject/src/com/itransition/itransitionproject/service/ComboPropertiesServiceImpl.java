@@ -6,8 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.itransition.itransitionproject.dao.ComboPropertiesDAO;
-import com.itransition.itransitionproject.domain.ComboProperties;
+import com.itransition.itransitionproject.dao.interfaces.ComboPropertiesDAO;
+import com.itransition.itransitionproject.entity.ComboProperties;
+import com.itransition.itransitionproject.service.interfaces.ComboPropertiesService;
 
 @Service
 public class ComboPropertiesServiceImpl implements ComboPropertiesService {

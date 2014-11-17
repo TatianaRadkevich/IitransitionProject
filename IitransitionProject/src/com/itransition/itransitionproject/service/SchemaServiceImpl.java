@@ -6,8 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.itransition.itransitionproject.dao.SchemaDAO;
-import com.itransition.itransitionproject.domain.Schema;
+import com.itransition.itransitionproject.dao.interfaces.SchemaDAO;
+import com.itransition.itransitionproject.entity.Schema;
+import com.itransition.itransitionproject.service.interfaces.SchemaService;
 
 @Service
 public class SchemaServiceImpl implements SchemaService {

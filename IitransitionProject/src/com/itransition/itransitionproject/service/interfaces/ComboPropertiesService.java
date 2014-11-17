@@ -1,10 +1,10 @@
-package com.itransition.itransitionproject.dao;
+package com.itransition.itransitionproject.service.interfaces;
 
 import java.util.List;
 
-import com.itransition.itransitionproject.domain.ComboProperties;
+import com.itransition.itransitionproject.entity.ComboProperties;
 
-public interface ComboPropertiesDAO {
+public interface ComboPropertiesService {
 	
 	public void addComboProperties(ComboProperties comboProperties);
 	
@@ -13,5 +13,4 @@ public interface ComboPropertiesDAO {
 	public List<ComboProperties> listComboProperties();
 	
 	public void removeComboProperties(Integer id);
-
 }

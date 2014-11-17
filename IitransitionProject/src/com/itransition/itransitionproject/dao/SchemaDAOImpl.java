@@ -6,7 +6,8 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.itransition.itransitionproject.domain.Schema;
+import com.itransition.itransitionproject.dao.interfaces.SchemaDAO;
+import com.itransition.itransitionproject.entity.Schema;
 
 @Repository
 public class SchemaDAOImpl implements SchemaDAO {

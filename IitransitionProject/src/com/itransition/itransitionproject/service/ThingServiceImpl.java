@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.itransition.itransitionproject.dao.ThingDAO;
-import com.itransition.itransitionproject.domain.Thing;
+import com.itransition.itransitionproject.dao.interfaces.ThingDAO;
+import com.itransition.itransitionproject.entity.Thing;
+import com.itransition.itransitionproject.entity.User;
+import com.itransition.itransitionproject.service.interfaces.ThingService;
 
 @Service
 public class ThingServiceImpl implements ThingService {
@@ -16,8 +18,8 @@ public class ThingServiceImpl implements ThingService {
     private ThingDAO thingDAO;
  
     @Transactional
-    public void addThing(Thing thing) {
-    	thingDAO.addThing(thing);
+    public void addThing(Thing thing, User user) {
+    	thingDAO.addThingByUser(thing, user);
     }
     
     @Transactional

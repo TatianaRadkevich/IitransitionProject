@@ -6,7 +6,8 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.itransition.itransitionproject.domain.ComboProperties;
+import com.itransition.itransitionproject.dao.interfaces.ComboPropertiesDAO;
+import com.itransition.itransitionproject.entity.ComboProperties;
 
 @Repository
 public class ComboPropertiesDAOImpl implements ComboPropertiesDAO {

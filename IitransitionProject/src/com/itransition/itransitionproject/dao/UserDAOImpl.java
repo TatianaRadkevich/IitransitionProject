@@ -2,37 +2,60 @@ package com.itransition.itransitionproject.dao;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.itransition.itransitionproject.domain.User;
+import com.itransition.itransitionproject.dao.interfaces.UserDAO;
+import com.itransition.itransitionproject.entity.User;
 
 @Repository
-public class UserDAOImpl implements UserDAO {
-
-    @Autowired
-    private SessionFactory sessionFactory;
-
+public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
+	private static final String SELECT_USER_BY_EMAIL_AND_PASS = "from User where email = :email and password = :password ";
+	private static final String SELECT_ALL_FROM_USER = "from User";
+	
+	@Autowired
+	private SessionFactory session;
+	
+	@Override
     public void addUser(User user) {
-        sessionFactory.getCurrentSession().save(user);
+        super.addElement(user);
     }
     
-    public User getUser(Integer id) {
-    	return (User) sessionFactory.getCurrentSession().load(User.class, id);
-    }
+	@Override
+	public User getUserById(Integer id) {
+		return (User)super.getRecordById(User.class, id);
+	}
 
-    @SuppressWarnings("unchecked")
-    public List<User> listUser() {
-    	return sessionFactory.getCurrentSession().createQuery("from User").list();
-    }
+	@Override
+	public User getUserByEmailAndPassword(String email, String password) {
+		Query query = session.openSession().createQuery(SELECT_USER_BY_EMAIL_AND_PASS);
+		query.setParameter("email", email);
+		query.setParameter("password", password);
+		return (User) query.list().get(0);
+	}
 
-    public void removeUser(Integer id) {
-    	User user = (User) sessionFactory.getCurrentSession().load(
-    			User.class, id);
-        if (null != user) {
-            sessionFactory.getCurrentSession().delete(user);
-        }
+	@Override
+	public List<User> listUser() {
+		return session.openSession().createQuery(SELECT_ALL_FROM_USER).list();
+	}
 
-    }
+	@Override
+	public void removeUserById(Integer id) {
+		super.removeElementById(id, User.class);
+	}
+
+	@Override
+	public void removeUser(User user) {
+		super.removeElement(user);
+	}
+
+	@Override
+	public User getUserByEmail(String email) {
+		Query query = session.openSession().createQuery(SELECT_USER_BY_EMAIL_AND_PASS);
+		query.setParameter("email", email);
+		return (User) query.list().get(0);
+	}
 }

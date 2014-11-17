@@ -75,7 +75,7 @@ CREATE TABLE IF NOT EXISTS `database`.`users` (
   `date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   `password` VARCHAR(50) NULL DEFAULT NULL,
   `email` VARCHAR(100) NULL DEFAULT NULL,
-  `role` INT(11) NULL DEFAULT '0',
+  `role` INT NULL DEFAULT 0,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
@@ -176,47 +176,6 @@ CREATE TABLE IF NOT EXISTS `database`.`user_to_thing` (
     REFERENCES `database`.`things` (`id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
--- Table `database`.`user_to_schema`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `database`.`user_to_schema` (
-  `id_users` INT NULL,
-  `id_schema` INT NULL,
-  INDEX `fk_user_to_schema_schemas1_idx` (`id_schema` ASC),
-  CONSTRAINT `fk_user_to_schema_users1`
-    FOREIGN KEY (`id_users`)
-    REFERENCES `database`.`users` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_user_to_schema_schemas1`
-    FOREIGN KEY (`id_schema`)
-    REFERENCES `database`.`schemas` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
-
-
--- -----------------------------------------------------
--- Table `database`.`clietthing_to_schema`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `database`.`clietthing_to_schema` (
-  `id_clietthing_to_schema` INT NULL,
-  `id_schema_to_clientthing` INT NULL,
-  INDEX `fk_clietthing_to_schema_clientthings1_idx` (`id_clietthing_to_schema` ASC),
-  INDEX `fk_clietthing_to_schema_schemas1_idx` (`id_schema_to_clientthing` ASC),
-  CONSTRAINT `fk_clietthing_to_schema_clientthings1`
-    FOREIGN KEY (`id_clietthing_to_schema`)
-    REFERENCES `database`.`clientthings` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_clietthing_to_schema_schemas1`
-    FOREIGN KEY (`id_schema_to_clientthing`)
-    REFERENCES `database`.`schemas` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION)
-ENGINE = InnoDB;
 
 
 SET SQL_MODE=@OLD_SQL_MODE;

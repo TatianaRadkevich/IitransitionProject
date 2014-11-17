@@ -1,10 +1,9 @@
-package com.itransition.itransitionproject.domain;
+package com.itransition.itransitionproject.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
@@ -13,14 +12,11 @@ public class ComboProperties {
 	
 	@Id
 	@GeneratedValue
-	@Column(name = "id")
+	@Column(name = "ID")
 	private Integer id;
 	
 	@Column(name = "LIST_PROPERTIES")
 	private String listProperties;
-	
-	@OneToOne(mappedBy = "comboProperties")
-	private Thing thing;
 
 	public Integer getId() {
 		return id;
@@ -37,12 +33,4 @@ public class ComboProperties {
 	public void setListProperties(String listProperties) {
 		this.listProperties = listProperties;
 	}
-
-	public Thing getThing() {
-		return thing;
-	}
-
-	public void setThing(Thing thing) {
-		this.thing = thing;
-	}	
 }

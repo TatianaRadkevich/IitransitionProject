@@ -5,33 +5,34 @@ import java.util.List;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.itransition.itransitionproject.domain.Thing;
+import com.itransition.itransitionproject.dao.interfaces.ThingDAO;
+import com.itransition.itransitionproject.entity.Thing;
+import com.itransition.itransitionproject.entity.User;
 
 @Repository
-public class ThingDAOImpl implements ThingDAO {
+public class ThingDAOImpl extends BaseDAOImpl implements ThingDAO{
 
-    @Autowired
-    private SessionFactory sessionFactory;
-
-    public void addThing(Thing thing) {
-        sessionFactory.getCurrentSession().save(thing);
+	@Autowired
+	SessionFactory session;
+	
+    public void addThingByUser(Thing thing, User user) {
+    	super.addElement(thing);
     }
     
     public Thing getThing(Integer id) {
-    	return (Thing) sessionFactory.getCurrentSession().load(Thing.class, id);
+    	return (Thing) super.getRecordById(Thing.class, id);
     }
 
-    @SuppressWarnings("unchecked")
     public List<Thing> listThing() {
-    	return sessionFactory.getCurrentSession().createQuery("from Thing").list();
+    	return session.openSession().createQuery("from Thing").list();
     }
 
     public void removeThing(Integer id) {
-    	Thing thing = (Thing) sessionFactory.getCurrentSession().load(
-    			Thing.class, id);
+    	Thing thing = (Thing) session.openSession().get(Thing.class, id);
         if (null != thing) {
-            sessionFactory.getCurrentSession().delete(thing);
+            session.openSession().delete(thing);
         }
 
     }

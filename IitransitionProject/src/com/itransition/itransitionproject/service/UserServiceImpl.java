@@ -2,36 +2,64 @@ package com.itransition.itransitionproject.service;
 
 import java.util.List;
 
+import com.itransition.itransitionproject.dao.UserDAOImpl;
+import com.itransition.itransitionproject.dao.interfaces.UserDAO;
+import com.itransition.itransitionproject.entity.User;
+import com.itransition.itransitionproject.service.interfaces.UserService;
+import com.itransition.itransitionproject.util.HibernateUtil;
+
+import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.itransition.itransitionproject.dao.UserDAO;
-import com.itransition.itransitionproject.domain.User;
-
 @Service
 public class UserServiceImpl implements UserService {
- 
-    @Autowired
-    private UserDAO userDAO;
- 
+
+	@Autowired
+	UserDAO userDAO;
+	
+    @Override
     @Transactional
-    public void addUser(User user) {
-    	userDAO.addUser(user);
+    public User getUser(String email) {
+        return userDAO.getUserByEmail(email);
     }
-    
-    @Transactional
-    public User getUser(Integer id) {
-    	return userDAO.getUser(id);
-    }
- 
-    @Transactional
-    public List<User> listUser() { 
-        return userDAO.listUser();
-    }
- 
-    @Transactional
-    public void removeUser(Integer id) {
-    	userDAO.removeUser(id);
-    }
+
+	@Override
+	@Transactional
+	public User getUserByEmailAndPass(String email, String password) {
+		return userDAO.getUserByEmailAndPassword(email, password);
+	}
+
+	@Override
+	@Transactional
+	public void addUser(User user) {
+		userDAO.addUser(user);
+	}
+
+	@Override
+	@Transactional
+	public void remoteUser(Integer id) {
+		userDAO.removeUserById(id);
+	}
+
+	@Override
+	@Transactional
+	public void remoteUserByEmail(String email) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	@Transactional
+	public void updateUser(User user) {
+	//	userDAO
+	}
+
+	@Override
+	@Transactional
+	public List<User> getAllUser() {
+		return userDAO.listUser();
+	}
+
 }
