@@ -25,18 +25,27 @@ import com.itransition.itransitionproject.entity.linking.UserToThing;
 		@UniqueConstraint(columnNames = "EMAIL") })
 public class User implements java.io.Serializable {
 
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "ID_USER", unique = true, nullable = false)
 	private Integer userId;
-	private String nameUser;
-	private String email;
-	private String password;
-	private int role;
-//	private Date date;
 	
+	@Column(name = "NAME_USER", nullable = false, length = 10)
+	private String nameUser;
+	
+	@Column(name = "EMAIL", unique = true, nullable = false, length = 10)
+	private String email;
+	
+	@Column(name = "PASSWORD", nullable = false, length = 10)
+	private String password;
+	
+	@Column(name = "ROLE", nullable = false, length = 10)
+	private int role;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.user", cascade=CascadeType.ALL)
 	private Set<UserToThing> userThings = new HashSet<UserToThing>(0);
 
 	public User() {
-//		Timestamp timestamp = null;
-//		date = timestamp.getTimestamp();
 	}
 
 	
@@ -48,8 +57,6 @@ public class User implements java.io.Serializable {
 		this.password = password;
 		this.role = role;
 		this.userThings = userThings;
-//		Timestamp timestamp = null;
-//		date = timestamp.getTimestamp();
 	}
 
 
@@ -60,8 +67,6 @@ public class User implements java.io.Serializable {
 		this.email = email;
 		this.password = password;
 		this.role = role;
-//		Timestamp timestamp = null;
-//		date = timestamp.getTimestamp();
 	}
 
 
@@ -69,9 +74,6 @@ public class User implements java.io.Serializable {
 	/**
 	 * @return the userId
 	 */
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "ID_USER", unique = true, nullable = false)
 	public Integer getUserId() {
 		return userId;
 	}
@@ -86,7 +88,6 @@ public class User implements java.io.Serializable {
 	/**
 	 * @return the nameUser
 	 */
-	@Column(name = "NAME_USER", nullable = false, length = 10)
 	public String getNameUser() {
 		return nameUser;
 	}
@@ -101,7 +102,6 @@ public class User implements java.io.Serializable {
 	/**
 	 * @return the email
 	 */
-	@Column(name = "EMAIL", unique = true, nullable = false, length = 10)
 	public String getEmail() {
 		return email;
 	}
@@ -116,7 +116,6 @@ public class User implements java.io.Serializable {
 	/**
 	 * @return the password
 	 */
-	@Column(name = "PASSWORD", nullable = false, length = 10)
 	public String getPassword() {
 		return password;
 	}
@@ -132,7 +131,6 @@ public class User implements java.io.Serializable {
 	/**
 	 * @return the userThings
 	 */
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.user", cascade=CascadeType.ALL)
 	public Set<UserToThing> getUserThings() {
 		return userThings;
 	}
@@ -147,7 +145,6 @@ public class User implements java.io.Serializable {
 	/**
 	 * @return the role
 	 */
-	@Column(name = "ROLE", nullable = false, length = 10)
 	public int getRole() {
 		return role;
 	}
@@ -158,13 +155,5 @@ public class User implements java.io.Serializable {
 	public void setRole(int role) {
 		this.role = role;
 	}
-/*
-	*//**
-	 * @return the date
-	 *//*
-	@Column(name = "DATE", nullable = false, length = 10)
-	public Date getDate() {
-		return date;
-	}*/
 
 }

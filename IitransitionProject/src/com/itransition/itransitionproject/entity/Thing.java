@@ -21,10 +21,21 @@ import com.itransition.itransitionproject.entity.linking.UserToThing;
 @Table(name = "things", catalog = "database")
 public class Thing implements java.io.Serializable {
 
+	@Id
+	@GeneratedValue(strategy = IDENTITY)
+	@Column(name = "ID_THING", unique = true, nullable = false)
 	private Integer thingId;
+	
+	@Column(name = "NAME_THING", nullable = false, length = 10)
 	private String name_thing;
+	
+	@Column(name = "LIST_PROPERTIES", nullable = false)
 	private String properties;
+	
+	@Column(name = "IMAGE_REF", nullable = false)
 	private String imageRef;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.thing")
 	private Set<UserToThing> userThings = new HashSet<UserToThing>(0);
 
 	public Thing() {
@@ -55,9 +66,6 @@ public class Thing implements java.io.Serializable {
 	/**
 	 * @return the thingId
 	 */
-	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "ID_THING", unique = true, nullable = false)
 	public Integer getThingId() {
 		return thingId;
 	}
@@ -72,7 +80,6 @@ public class Thing implements java.io.Serializable {
 	/**
 	 * @return the name_thing
 	 */
-	@Column(name = "NAME_THING", nullable = false, length = 10)
 	public String getName_thing() {
 		return name_thing;
 	}
@@ -87,7 +94,6 @@ public class Thing implements java.io.Serializable {
 	/**
 	 * @return the properties
 	 */
-	@Column(name = "LIST_PROPERTIES", nullable = false)
 	public String getProperties() {
 		return properties;
 	}
@@ -103,7 +109,6 @@ public class Thing implements java.io.Serializable {
 	/**
 	 * @return the imageRef
 	 */
-	@Column(name = "IMAGE_REF", nullable = false)
 	public String getImageRef() {
 		return imageRef;
 	}
@@ -131,7 +136,6 @@ public class Thing implements java.io.Serializable {
 	/**
 	 * @return the userThings
 	 */
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.thing")
 	public Set<UserToThing> getUserThings() {
 		return userThings;
 	}
