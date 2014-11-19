@@ -15,11 +15,47 @@ USE `database` ;
 -- Table `database`.`clientthings`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `database`.`clientthings` (
-  `id` INT(11) NOT NULL,
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
   `list_value` VARCHAR(200) NULL DEFAULT NULL,
   `rotation` INT(11) NULL DEFAULT NULL,
   `coordinates` VARCHAR(50) NULL DEFAULT NULL,
   PRIMARY KEY (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `database`.`schemas`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `database`.`schemas` (
+  `id` INT(11) NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(50) NULL DEFAULT NULL,
+  `param` VARCHAR(200) NULL DEFAULT NULL,
+  `sum_raiting` INT(11) NULL DEFAULT NULL,
+  `count_users` INT(11) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `database`.`clientthing_to_schema`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `database`.`clientthing_to_schema` (
+  `id_clientthing` INT(11) NULL DEFAULT NULL,
+  `id_schema` INT(11) NULL DEFAULT NULL,
+  INDEX `fk_clientthing_to_schema_clientthings1_idx` (`id_clientthing` ASC),
+  INDEX `fk_clientthing_to_schema_schemas1_idx` (`id_schema` ASC),
+  CONSTRAINT `fk_clientthing_to_schema_clientthings1`
+    FOREIGN KEY (`id_clientthing`)
+    REFERENCES `database`.`clientthings` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_clientthing_to_schema_schemas1`
+    FOREIGN KEY (`id_schema`)
+    REFERENCES `database`.`schemas` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
@@ -45,6 +81,7 @@ CREATE TABLE IF NOT EXISTS `database`.`things` (
   `list_properties` VARCHAR(150) NULL DEFAULT NULL,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
+AUTO_INCREMENT = 2
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -75,23 +112,10 @@ CREATE TABLE IF NOT EXISTS `database`.`users` (
   `date` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   `password` VARCHAR(50) NULL DEFAULT NULL,
   `email` VARCHAR(100) NULL DEFAULT NULL,
-  `role` INT NULL DEFAULT 0,
+  `role` INT(11) NULL DEFAULT '0',
   PRIMARY KEY (`id`))
 ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8;
-
-
--- -----------------------------------------------------
--- Table `database`.`schemas`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `database`.`schemas` (
-  `id` INT(11) NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(50) NULL DEFAULT NULL,
-  `param` VARCHAR(200) NULL DEFAULT NULL,
-  `sum_raiting` INT(11) NULL DEFAULT NULL,
-  `count_users` INT(11) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB
+AUTO_INCREMENT = 2
 DEFAULT CHARACTER SET = utf8;
 
 
@@ -154,6 +178,28 @@ CREATE TABLE IF NOT EXISTS `database`.`user_to_client_thing` (
   CONSTRAINT `FK__clientthing_to_user`
     FOREIGN KEY (`id_client`)
     REFERENCES `database`.`clientthings` (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8;
+
+
+-- -----------------------------------------------------
+-- Table `database`.`user_to_schema`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `database`.`user_to_schema` (
+  `id_schema` INT(11) NULL DEFAULT NULL,
+  `id_user` INT(11) NULL DEFAULT NULL,
+  INDEX `fk_user_to_schema_schemas1_idx` (`id_schema` ASC),
+  INDEX `fk_user_to_schema_users1_idx` (`id_user` ASC),
+  CONSTRAINT `fk_user_to_schema_schemas1`
+    FOREIGN KEY (`id_schema`)
+    REFERENCES `database`.`schemas` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_user_to_schema_users1`
+    FOREIGN KEY (`id_user`)
+    REFERENCES `database`.`users` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8;
 
