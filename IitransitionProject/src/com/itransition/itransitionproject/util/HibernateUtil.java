@@ -2,6 +2,7 @@ package com.itransition.itransitionproject.util;
  
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.springframework.stereotype.Service;
  
 public class HibernateUtil {
  

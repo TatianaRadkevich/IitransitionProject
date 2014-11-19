@@ -8,6 +8,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToOne;
 
 import static javax.persistence.GenerationType.IDENTITY;
 
@@ -23,7 +26,7 @@ public class Thing implements java.io.Serializable {
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "ID_THING", unique = true, nullable = false)
+	@Column(name = "ID", unique = true, nullable = false)
 	private Integer thingId;
 	
 	@Column(name = "NAME_THING", nullable = false, length = 10)
@@ -37,11 +40,13 @@ public class Thing implements java.io.Serializable {
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.thing")
 	private Set<UserToThing> userThings = new HashSet<UserToThing>(0);
-
-	public Thing() {
-	}
-
 	
+	@ManyToOne(fetch = FetchType.LAZY, optional = true)
+	@JoinTable(name = "USER_TO_THING", joinColumns = @JoinColumn(name = "ID_THING"),
+			inverseJoinColumns = @JoinColumn(name = "ID_USER"))
+	private User user;
+
+	public Thing() {}
 
 	public Thing(String name_thing, String properties, String imageRef,
 			Set<UserToThing> userThings) {
@@ -52,8 +57,6 @@ public class Thing implements java.io.Serializable {
 		this.userThings = userThings;
 	}
 
-
-
 	public Thing(String name_thing, String properties, String imageRef) {
 		super();
 		this.name_thing = name_thing;
@@ -61,83 +64,52 @@ public class Thing implements java.io.Serializable {
 		this.imageRef = imageRef;
 	}
 
-
-
-	/**
-	 * @return the thingId
-	 */
 	public Integer getThingId() {
 		return thingId;
 	}
 
-	/**
-	 * @param thingId the thingId to set
-	 */
 	public void setThingId(Integer thingId) {
 		this.thingId = thingId;
 	}
 
-	/**
-	 * @return the name_thing
-	 */
 	public String getName_thing() {
 		return name_thing;
 	}
 
-	/**
-	 * @param name_thing the name_thing to set
-	 */
 	public void setName_thing(String name_thing) {
 		this.name_thing = name_thing;
 	}
 
-	/**
-	 * @return the properties
-	 */
 	public String getProperties() {
 		return properties;
 	}
 
-	/**
-	 * @param properties the properties to set
-	 */
 	public void setProperties(String properties) {
 		this.properties = properties;
 	}
 
-	
-	/**
-	 * @return the imageRef
-	 */
 	public String getImageRef() {
 		return imageRef;
 	}
 
-
-
-	/**
-	 * @param imageRef the imageRef to set
-	 */
 	public void setImageRef(String imageRef) {
 		this.imageRef = imageRef;
 	}
 
-
-
-	/**
-	 * @param userThings the userThings to set
-	 */
 	public void setUserThings(Set<UserToThing> userThings) {
 		this.userThings = userThings;
 	}
 
-
-
-	/**
-	 * @return the userThings
-	 */
 	public Set<UserToThing> getUserThings() {
 		return userThings;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }

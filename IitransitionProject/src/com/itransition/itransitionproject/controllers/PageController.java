@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class PageController {
 
 	@RequestMapping(method = RequestMethod.POST)
-	public String firstPage(Model model){
+	public String firstPage(Model model) {
 		return "page";
 	}
 }

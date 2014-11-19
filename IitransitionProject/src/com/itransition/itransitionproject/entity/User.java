@@ -27,10 +27,10 @@ public class User implements java.io.Serializable {
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "ID_USER", unique = true, nullable = false)
+	@Column(name = "ID", unique = true, nullable = false)
 	private Integer userId;
 	
-	@Column(name = "NAME_USER", nullable = false, length = 10)
+	@Column(name = "NAME", nullable = false, length = 10)
 	private String nameUser;
 	
 	@Column(name = "EMAIL", unique = true, nullable = false, length = 10)
@@ -44,11 +44,11 @@ public class User implements java.io.Serializable {
 	
 	@OneToMany(fetch = FetchType.LAZY, mappedBy = "pk.user", cascade=CascadeType.ALL)
 	private Set<UserToThing> userThings = new HashSet<UserToThing>(0);
-
-	public User() {
-	}
-
 	
+	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+	private Set<Thing> things;
+
+	public User() {}
 
 	public User(String nameUser, String email, String password, int role, Set<UserToThing> userThings) {
 		super();
@@ -59,8 +59,6 @@ public class User implements java.io.Serializable {
 		this.userThings = userThings;
 	}
 
-
-
 	public User(String nameUser, String email, String password, int role) {
 		super();
 		this.nameUser = nameUser;
@@ -69,91 +67,60 @@ public class User implements java.io.Serializable {
 		this.role = role;
 	}
 
-
-
-	/**
-	 * @return the userId
-	 */
 	public Integer getUserId() {
 		return userId;
 	}
 
-	/**
-	 * @param userId the userId to set
-	 */
 	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
 
-	/**
-	 * @return the nameUser
-	 */
 	public String getNameUser() {
 		return nameUser;
 	}
 
-	/**
-	 * @param nameUser the nameUser to set
-	 */
 	public void setNameUser(String nameUser) {
 		this.nameUser = nameUser;
 	}
 
-	/**
-	 * @return the email
-	 */
 	public String getEmail() {
 		return email;
 	}
-
-	/**
-	 * @param email the email to set
-	 */
+	
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
-	/**
-	 * @return the password
-	 */
 	public String getPassword() {
 		return password;
 	}
 
-	/**
-	 * @param password the password to set
-	 */
 	public void setPassword(String password) {
 		this.password = password;
 	}
 
-
-	/**
-	 * @return the userThings
-	 */
 	public Set<UserToThing> getUserThings() {
 		return userThings;
 	}
 
-	/**
-	 * @param userThings the userThings to set
-	 */
 	public void setUserThings(Set<UserToThing> userThings) {
 		this.userThings = userThings;
 	}
 
-	/**
-	 * @return the role
-	 */
 	public int getRole() {
 		return role;
 	}
 
-	/**
-	 * @param role the role to set
-	 */
 	public void setRole(int role) {
 		this.role = role;
+	}
+
+	public Set<Thing> getThings() {
+		return things;
+	}
+
+	public void setThings(Set<Thing> things) {
+		this.things = things;
 	}
 
 }

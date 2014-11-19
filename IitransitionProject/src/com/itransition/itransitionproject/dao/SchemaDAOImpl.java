@@ -8,12 +8,12 @@ import org.springframework.stereotype.Repository;
 
 import com.itransition.itransitionproject.dao.interfaces.SchemaDAO;
 import com.itransition.itransitionproject.entity.Schema;
+import com.itransition.itransitionproject.util.HibernateUtil;
 
 @Repository
 public class SchemaDAOImpl implements SchemaDAO {
 
-    @Autowired
-    private SessionFactory sessionFactory;
+    private SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
     public void addSchema(Schema schema) {
         sessionFactory.getCurrentSession().save(schema);

@@ -8,12 +8,12 @@ import org.springframework.stereotype.Repository;
 
 import com.itransition.itransitionproject.dao.interfaces.ThingOfClientDAO;
 import com.itransition.itransitionproject.entity.ThingOfClient;
+import com.itransition.itransitionproject.util.HibernateUtil;
 
 @Repository
 public class ThingOfClientDAOImpl implements ThingOfClientDAO{
 
-    @Autowired
-    private SessionFactory sessionFactory;
+	private SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
     
 	@Override
 	public void addThingOfClient(ThingOfClient thingOfClient) {

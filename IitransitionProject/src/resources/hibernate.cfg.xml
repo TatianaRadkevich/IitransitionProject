@@ -8,12 +8,15 @@
 	 	<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
 		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/database</property>
 		<property name="hibernate.connection.username">root</property>
-		<property name="hibernate.connection.password">root</property>
+		<property name="hibernate.connection.password">5699mitya</property>
 		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
 		<property name="show_sql">true</property>
 		<property name="format_sql">true</property>
     	<mapping class="com.itransition.itransitionproject.entity.User" />
+    	<mapping class="com.itransition.itransitionproject.entity.ComboProperties" />
+    	<mapping class="com.itransition.itransitionproject.entity.Schema" />
     	<mapping class="com.itransition.itransitionproject.entity.Thing" />
+    	<mapping class="com.itransition.itransitionproject.entity.ThingOfClient" />
     	<mapping class="com.itransition.itransitionproject.entity.linking.UserToThing" />
     	<mapping class="com.itransition.itransitionproject.entity.linking.UserToThingId" />
 	</session-factory>

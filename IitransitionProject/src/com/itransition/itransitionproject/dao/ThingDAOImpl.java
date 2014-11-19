@@ -10,12 +10,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.itransition.itransitionproject.dao.interfaces.ThingDAO;
 import com.itransition.itransitionproject.entity.Thing;
 import com.itransition.itransitionproject.entity.User;
+import com.itransition.itransitionproject.util.HibernateUtil;
 
 @Repository
 public class ThingDAOImpl extends BaseDAOImpl implements ThingDAO{
 
-	@Autowired
-	SessionFactory session;
+	private SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 	
     public void addThingByUser(Thing thing, User user) {
     	super.addElement(thing);
@@ -26,13 +26,13 @@ public class ThingDAOImpl extends BaseDAOImpl implements ThingDAO{
     }
 
     public List<Thing> listThing() {
-    	return session.openSession().createQuery("from Thing").list();
+    	return sessionFactory.openSession().createQuery("from Thing").list();
     }
 
     public void removeThing(Integer id) {
-    	Thing thing = (Thing) session.openSession().get(Thing.class, id);
+    	Thing thing = (Thing) sessionFactory.openSession().get(Thing.class, id);
         if (null != thing) {
-            session.openSession().delete(thing);
+            sessionFactory.openSession().delete(thing);
         }
 
     }

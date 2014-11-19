@@ -8,12 +8,12 @@ import org.springframework.stereotype.Repository;
 
 import com.itransition.itransitionproject.dao.interfaces.ComboPropertiesDAO;
 import com.itransition.itransitionproject.entity.ComboProperties;
+import com.itransition.itransitionproject.util.HibernateUtil;
 
 @Repository
 public class ComboPropertiesDAOImpl implements ComboPropertiesDAO {
 
-    @Autowired
-    private SessionFactory sessionFactory;
+    private SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
     public void addComboProperties(ComboProperties comboProperties) {
         sessionFactory.getCurrentSession().save(comboProperties);

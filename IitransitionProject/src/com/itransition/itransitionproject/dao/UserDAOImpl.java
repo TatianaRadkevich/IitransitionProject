@@ -10,14 +10,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.itransition.itransitionproject.dao.interfaces.UserDAO;
 import com.itransition.itransitionproject.entity.User;
+import com.itransition.itransitionproject.util.HibernateUtil;
 
 @Repository
 public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 	private static final String SELECT_USER_BY_EMAIL_AND_PASS = "from User where email = :email and password = :password ";
 	private static final String SELECT_ALL_FROM_USER = "from User";
 	
-	@Autowired
-	private SessionFactory session;
+	private SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 	
 	@Override
     public void addUser(User user) {
@@ -31,7 +31,7 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 
 	@Override
 	public User getUserByEmailAndPassword(String email, String password) {
-		Query query = session.openSession().createQuery(SELECT_USER_BY_EMAIL_AND_PASS);
+		Query query = sessionFactory.openSession().createQuery(SELECT_USER_BY_EMAIL_AND_PASS);
 		query.setParameter("email", email);
 		query.setParameter("password", password);
 		return (User) query.list().get(0);
@@ -39,7 +39,7 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 
 	@Override
 	public List<User> listUser() {
-		return session.openSession().createQuery(SELECT_ALL_FROM_USER).list();
+		return sessionFactory.openSession().createQuery(SELECT_ALL_FROM_USER).list();
 	}
 
 	@Override
@@ -54,7 +54,7 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 
 	@Override
 	public User getUserByEmail(String email) {
-		Query query = session.openSession().createQuery(SELECT_USER_BY_EMAIL_AND_PASS);
+		Query query = sessionFactory.openSession().createQuery(SELECT_USER_BY_EMAIL_AND_PASS);
 		query.setParameter("email", email);
 		return (User) query.list().get(0);
 	}

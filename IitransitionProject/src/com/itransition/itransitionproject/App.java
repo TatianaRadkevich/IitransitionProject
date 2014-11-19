@@ -1,7 +1,10 @@
 package com.itransition.itransitionproject;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.itransition.itransitionproject.entity.Thing;
 import com.itransition.itransitionproject.entity.User;
@@ -9,6 +12,7 @@ import com.itransition.itransitionproject.service.interfaces.ThingService;
 import com.itransition.itransitionproject.service.interfaces.UserService;
 import com.itransition.itransitionproject.util.HibernateUtil;
 
+@Service
 public class App {
 	private static final String SELECT_ALL_FROM_THING = "from Thing";
 	@Autowired
@@ -26,11 +30,26 @@ public class App {
 		user.setNameUser("userAlexandr");
 		user.setEmail("radkevich.t.s@gmail.com");
 		user.setPassword("password");
+		Thing thing = new Thing("name", "properties", "image");
 //		user.setDate("");
 		// добавляем его в базу
-		userService.addUser(user);
+		session.beginTransaction();
+		thing.setUser(user);
+		session.save(user);
+		session.save(thing);
+		session.getTransaction().commit();
+		session.close();
+		session = HibernateUtil.getSessionFactory().openSession();
+		session.beginTransaction();
+		List<User> userList = (List<User>)session.createQuery("from User order by id").list();
+		session.getTransaction().commit();
+		for (User usr : userList) {
+			System.out.println(usr.getEmail());			
+			System.out.println(usr.getThings());
+		}
+		
 		// возвращаем из базы
-		User user1 = userService.getUserByEmailAndPass("radkevich.t.s@gmail.com", "password");
+		/*User user1 = userService.getUserByEmailAndPass("radkevich.t.s@gmail.com", "password");
 		// создаём thing
 		Thing thing = new Thing("name", "properties", "image");
 		// добавляем в базу thing как связку

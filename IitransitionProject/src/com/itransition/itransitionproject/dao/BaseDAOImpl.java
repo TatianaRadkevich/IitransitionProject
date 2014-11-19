@@ -10,30 +10,30 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.itransition.itransitionproject.dao.interfaces.BaseDAO;
+import com.itransition.itransitionproject.util.HibernateUtil;
 
 public class BaseDAOImpl implements BaseDAO {
 
-	@Autowired
-	private SessionFactory session;
+	private SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
 
 	@Override
 	public Object getRecordById(Class classObject, Integer id) {
-		return session.openSession().get(classObject, id);
+		return sessionFactory.openSession().get(classObject, id);
 	}
 
 	@Override
 	public void addElement(Object object) {
-		session.openSession().save(object);
+		sessionFactory.openSession().save(object);
 	}
 
 	@Override
 	public void removeElement(Object object) {
-		session.openSession().delete(object);
+		sessionFactory.openSession().delete(object);
 	}
 
 	@Override
 	public List<Object> getAllRecords(String queryStr) {
-		return session.openSession().createQuery(queryStr).list();
+		return sessionFactory.openSession().createQuery(queryStr).list();
 	}
 
 	@Override
