@@ -2,15 +2,15 @@ package com.itransition.itransitionproject.service.interfaces;
 
 import java.util.List;
 
-import com.itransition.itransitionproject.entity.Schema;
+import com.itransition.itransitionproject.entity.SchemasOfUsers;
 
 public interface SchemaService {
 	
-	public void addSchema(Schema schema);
+	public void addSchema(SchemasOfUsers schema);
 	
-	public Schema getSchema(Integer id);
+	public SchemasOfUsers getSchema(Integer id);
 	
-	public List<Schema> listSchema();
+	public List<SchemasOfUsers> listSchema();
 	
 	public void removeSchema(Integer id);
 

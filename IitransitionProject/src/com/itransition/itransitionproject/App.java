@@ -5,7 +5,7 @@ import java.util.List;
 import org.hibernate.Session;
 import org.springframework.stereotype.Service;
 
-import com.itransition.itransitionproject.entity.Schema;
+import com.itransition.itransitionproject.entity.SchemasOfUsers;
 import com.itransition.itransitionproject.entity.Thing;
 import com.itransition.itransitionproject.entity.ThingOfClient;
 import com.itransition.itransitionproject.entity.User;
@@ -34,8 +34,8 @@ public class App {
 		thingOfClient.setUser(user);
 		
 		
-		Schema schema = new Schema();
-		schema.setName("name");
+		SchemasOfUsers schema = new SchemasOfUsers();
+		schema.setName("aaaa");
 		schema.setCountUsers(12);
 		schema.setSumRaiting(100);
 		schema.setParameters("HAHAH");

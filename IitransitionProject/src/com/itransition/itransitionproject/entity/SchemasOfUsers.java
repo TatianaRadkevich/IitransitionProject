@@ -18,18 +18,18 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "SCHEMAS")
-public class Schema implements Serializable {
+@Table(name = "schemas_of_users")
+public class SchemasOfUsers {
 	
 	@Id
-    @Column(name = "ID")
-    @GeneratedValue(strategy = IDENTITY)
+    @Column(name = "ID_SCHEMA")
+    @GeneratedValue
     private Integer id;
 	
-	@Column(name = "NAME")
+	@Column(name = "NAME_SCHEMA")
 	private String name;
 	
-	@Column(name = "PARAM")
+	@Column(name = "PARAM_SCHEMA")
 	private String parameters;
 	
 	@Column(name = "SUM_RAITING")
@@ -42,9 +42,23 @@ public class Schema implements Serializable {
 	private Set<ThingOfClient> clentThings;
 		
 	@ManyToOne(fetch = FetchType.LAZY, optional = true)
-	@JoinTable(name = "USER_TO_SCHEMA", joinColumns = @JoinColumn(name = "ID_SCHEMA"),
+	@JoinTable(name = "RAIT", joinColumns = @JoinColumn(name = "ID_SCHEMA"),
 		inverseJoinColumns = @JoinColumn(name = "ID_USER"))
 	private User user;
+
+	public SchemasOfUsers(String name, String parameters, Integer sumRaiting,
+			Integer countUsers) {
+		super();
+		this.name = name;
+		this.parameters = parameters;
+		this.sumRaiting = sumRaiting;
+		this.countUsers = countUsers;
+	}
+
+	public SchemasOfUsers() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	public Integer getId() {
 		return id;
@@ -139,7 +153,7 @@ public class Schema implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Schema other = (Schema) obj;
+		SchemasOfUsers other = (SchemasOfUsers) obj;
 		if (countUsers == null) {
 			if (other.countUsers != null)
 				return false;

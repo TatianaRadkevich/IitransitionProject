@@ -12,12 +12,12 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "COMBOPROPERTIES")
-public class ComboProperties implements Serializable {
+@Table(name = "combo_properties")
+public class ComboProperties {
 	
 	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "ID")
+	@GeneratedValue
+	@Column(name = "ID_COMBO_PROPERTIES")
 	private Integer id;
 	
 	@Column(name = "LIST_PROPERTIES")
@@ -25,6 +25,11 @@ public class ComboProperties implements Serializable {
 	
 	@OneToOne(mappedBy = "comboProperties")
 	private Thing thing;
+
+	public ComboProperties() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	public Integer getId() {
 		return id;

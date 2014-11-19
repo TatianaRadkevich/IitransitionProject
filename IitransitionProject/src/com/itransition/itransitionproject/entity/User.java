@@ -25,10 +25,10 @@ public class User implements java.io.Serializable {
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "ID", unique = true, nullable = false)
+	@Column(name = "ID_USER", unique = true, nullable = false)
 	private Integer userId;
 	
-	@Column(name = "NAME", nullable = false, length = 10)
+	@Column(name = "NAME_USER", nullable = false, length = 10)
 	private String nameUser;
 	
 	@Column(name = "EMAIL", unique = true, nullable = false, length = 10)
@@ -37,8 +37,8 @@ public class User implements java.io.Serializable {
 	@Column(name = "PASSWORD", nullable = false, length = 10)
 	private String password;
 	
-	@Column(name = "ROLE", nullable = false, length = 10)
-	private int role;
+	@Column(name = "ENABLED", nullable = false)
+	private boolean enabled;
 	
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
 	private Set<Thing> things;
@@ -47,26 +47,37 @@ public class User implements java.io.Serializable {
 	private Set<ThingOfClient> clientThings;
 	
 	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-	private Set<Schema> schemas;
+	private Set<SchemasOfUsers> schemas;
+	
+	/*@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+	private Set<RoleUser> roleUsers;*/
 
 	public User() {}
-
-	public User(String nameUser, String email, String password, int role, Set<ThingOfClient> clientThings) {
+	
+	public User(String nameUser, String email, String password,
+			boolean enabled, Set<Thing> things, Set<RoleUser> roleUsers) {
 		super();
 		this.nameUser = nameUser;
 		this.email = email;
 		this.password = password;
-		this.role = role;
-		this.clientThings = clientThings;
+		this.enabled = enabled;
+		this.things = things;
+//		this.roleUsers = roleUsers;
 	}
 
-	public User(String nameUser, String email, String password, int role) {
+
+
+	public User(String nameUser, String email, String password,
+			boolean enabled, Set<Thing> things) {
 		super();
 		this.nameUser = nameUser;
 		this.email = email;
 		this.password = password;
-		this.role = role;
+		this.enabled = enabled;
+		this.things = things;
 	}
+
+
 
 	public Integer getUserId() {
 		return userId;
@@ -100,14 +111,6 @@ public class User implements java.io.Serializable {
 		this.password = password;
 	}
 
-	public int getRole() {
-		return role;
-	}
-
-	public void setRole(int role) {
-		this.role = role;
-	}
-
 	public Set<Thing> getThings() {
 		return things;
 	}
@@ -124,18 +127,46 @@ public class User implements java.io.Serializable {
 		this.clientThings = clientThings;
 	}
 
-	public Set<Schema> getSchemas() {
+	public Set<SchemasOfUsers> getSchemas() {
 		return schemas;
 	}
 
-	public void setSchemas(Set<Schema> schemas) {
+	public void setSchemas(Set<SchemasOfUsers> schemas) {
 		this.schemas = schemas;
 	}
+
+	/**
+	 * @return the enabled
+	 */
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	/**
+	 * @param enabled the enabled to set
+	 */
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
+/*	*//**
+	 * @return the roleUsers
+	 *//*
+	public Set<RoleUser> getRoleUsers() {
+		return roleUsers;
+	}
+
+	*//**
+	 * @param roleUsers the roleUsers to set
+	 *//*
+	public void setRoleUsers(Set<RoleUser> roleUsers) {
+		this.roleUsers = roleUsers;
+	}*/
 
 	@Override
 	public String toString() {
 		return "User [userId=" + userId + ", nameUser=" + nameUser + ", email="
-				+ email + ", password=" + password + ", role=" + role
+				+ email + ", password=" + password
 				+ ", things=" + things + ", clientThings=" + clientThings
 				+ ", schemas=" + schemas + "]";
 	}
@@ -149,7 +180,6 @@ public class User implements java.io.Serializable {
 				+ ((nameUser == null) ? 0 : nameUser.hashCode());
 		result = prime * result
 				+ ((password == null) ? 0 : password.hashCode());
-		result = prime * result + role;
 		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
 		return result;
 	}
@@ -177,8 +207,6 @@ public class User implements java.io.Serializable {
 			if (other.password != null)
 				return false;
 		} else if (!password.equals(other.password))
-			return false;
-		if (role != other.role)
 			return false;
 		if (userId == null) {
 			if (other.userId != null)

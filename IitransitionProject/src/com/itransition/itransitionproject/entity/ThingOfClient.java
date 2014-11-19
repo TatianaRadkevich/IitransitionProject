@@ -1,7 +1,5 @@
 package com.itransition.itransitionproject.entity;
 
-import static javax.persistence.GenerationType.IDENTITY;
-
 import java.io.Serializable;
 import java.util.Set;
 
@@ -16,13 +14,14 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+
 @Entity
-@Table(name = "CLIENTTHINGS")
-public class ThingOfClient implements Serializable {
+@Table(name = "things_of_client")
+public class ThingOfClient {
 	
 	@Id
-	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "ID")
+	@GeneratedValue
+	@Column(name = "ID_THING_OF_CLIENT")
 	private Integer id;
 	
 	@Column(name = "LIST_VALUE")
@@ -35,19 +34,33 @@ public class ThingOfClient implements Serializable {
 	private String coordinates;
 	
 	@ManyToOne(fetch = FetchType.LAZY, optional = true)
-	@JoinTable(name = "USER_TO_CLIENT_THING", joinColumns = @JoinColumn(name = "ID_CLIENT"),
+	@JoinTable(name = "USER_TO_THING_OF_CLIENT", joinColumns = @JoinColumn(name = "ID_THING_OF_CLIENT"),
 		inverseJoinColumns = @JoinColumn(name = "ID_USER"))
 	private User user;
 		
 	@ManyToOne(fetch = FetchType.LAZY, optional = true)
-	@JoinTable(name = "THING_TO_CLIENTTHING", joinColumns = @JoinColumn(name = "ID_CLIENTTHING"),
+	@JoinTable(name = "THING_TO_THING_OF_CLIENT", joinColumns = @JoinColumn(name = "ID_THING_OF_CLIENT"),
 		inverseJoinColumns = @JoinColumn(name = "ID_THING"))
 	private Thing thing;
 		
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "CLIENTHING_TO_SCHEMA", joinColumns = @JoinColumn(name = "ID_CLIENTTHING"),
 		inverseJoinColumns = @JoinColumn(name = "ID_SCHEMA"))
-	private Set<Schema> schemas;
+	private Set<SchemasOfUsers> schemas;
+
+	public ThingOfClient(String listValue, Integer rotation,
+			String coordinates, User user) {
+		super();
+		this.listValue = listValue;
+		this.rotation = rotation;
+		this.coordinates = coordinates;
+		this.user = user;
+	}
+
+	public ThingOfClient() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
 	public Integer getId() {
 		return id;
@@ -97,11 +110,11 @@ public class ThingOfClient implements Serializable {
 		this.thing = thing;
 	}
 
-	public Set<Schema> getSchemas() {
+	public Set<SchemasOfUsers> getSchemas() {
 		return schemas;
 	}
 
-	public void setSchemas(Set<Schema> schemas) {
+	public void setSchemas(Set<SchemasOfUsers> schemas) {
 		this.schemas = schemas;
 	}
 

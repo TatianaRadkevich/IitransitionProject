@@ -14,7 +14,7 @@
 		<property name="format_sql">true</property>
     	<mapping class="com.itransition.itransitionproject.entity.User" />
     	<mapping class="com.itransition.itransitionproject.entity.ComboProperties" />
-    	<mapping class="com.itransition.itransitionproject.entity.Schema" />
+    	<mapping class="com.itransition.itransitionproject.entity.SchemasOfUsers" />
     	<mapping class="com.itransition.itransitionproject.entity.Thing" />
     	<mapping class="com.itransition.itransitionproject.entity.ThingOfClient" />
 	</session-factory>

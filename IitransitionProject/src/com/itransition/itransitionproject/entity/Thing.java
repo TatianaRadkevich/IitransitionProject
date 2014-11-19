@@ -23,7 +23,7 @@ public class Thing implements java.io.Serializable {
 
 	@Id
 	@GeneratedValue(strategy = IDENTITY)
-	@Column(name = "ID", unique = true, nullable = false)
+	@Column(name = "ID_THING", unique = true, nullable = false)
 	private Integer thingId;
 	
 	@Column(name = "NAME_THING", nullable = false, length = 10)
@@ -44,20 +44,11 @@ public class Thing implements java.io.Serializable {
 	private User user;
 	
 	@OneToOne
-	@JoinTable(name = "PROP_TO_THING", joinColumns = @JoinColumn(name = "ID_THING_PROP"),
-		inverseJoinColumns = @JoinColumn(name = "ID_PROPERTIES"))
+	@JoinTable(name = "COMBO_PROPERTIES_TO_THING", joinColumns = @JoinColumn(name = "ID_THING"),
+		inverseJoinColumns = @JoinColumn(name = "ID_COMBO_PROPERTIES"))
 	private ComboProperties comboProperties;
 
 	public Thing() {}
-
-	public Thing(String name_thing, String properties, String imageRef,
-			Set<ThingOfClient> clientThings) {
-		super();
-		this.name_thing = name_thing;
-		this.properties = properties;
-		this.imageRef = imageRef;
-		this.clientThings = clientThings;
-	}
 
 	public Thing(String name_thing, String properties, String imageRef) {
 		super();
