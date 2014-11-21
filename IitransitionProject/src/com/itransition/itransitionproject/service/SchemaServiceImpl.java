@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.itransition.itransitionproject.dao.interfaces.SchemaDAO;
 import com.itransition.itransitionproject.entity.SchemasOfUsers;
 import com.itransition.itransitionproject.service.interfaces.SchemaService;
+import com.itransition.itransitionproject.util.SearchUtil;
 
 @Service
 public class SchemaServiceImpl implements SchemaService {
@@ -34,6 +35,10 @@ public class SchemaServiceImpl implements SchemaService {
     @Transactional
     public void removeSchema(Integer id) {
     	schemaDAO.removeSchema(id);
+    }
+    
+    public List<SchemasOfUsers> search(String match) {
+    	return SearchUtil.<SchemasOfUsers>search(SchemasOfUsers.class, "name", match);
     }
 }
 

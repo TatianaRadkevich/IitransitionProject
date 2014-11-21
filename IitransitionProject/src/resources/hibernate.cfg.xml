@@ -5,6 +5,8 @@
 
 <hibernate-configuration>
 	<session-factory>
+        <property name="hibernate.bytecode.use_reflection_optimizer">false</property>
+        <property name="hibernate.current_session_context_class">org.hibernate.context.ThreadLocalSessionContext</property>        
 	 	<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
 		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/database</property>
 		<property name="hibernate.connection.username">root</property>
@@ -18,4 +20,8 @@
     	<mapping class="com.itransition.itransitionproject.entity.Thing" />
     	<mapping class="com.itransition.itransitionproject.entity.ThingOfClient" />
 	</session-factory>
+	
+	
 </hibernate-configuration>
+
+

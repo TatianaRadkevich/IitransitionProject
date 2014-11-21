@@ -9,25 +9,5 @@
         <property name="prefix"><value>/WEB-INF/pages/</value></property>
         <property name="suffix"><value>.jsp</value></property>
     </bean> 
-
-    <bean id="baseDAO" class="com.itransition.itransitionproject.dao.BaseDAOImpl" />
-    <bean id="comboPropertiesDAO" class="com.itransition.itransitionproject.dao.ComboPropertiesDAOImpl" />
-    <bean id="schemaDAO" class="com.itransition.itransitionproject.dao.SchemaDAOImpl" />
-    <bean id="thingDAO" class="com.itransition.itransitionproject.dao.ThingDAOImpl" />
-    <bean id="thingOfClientDAO" class="com.itransition.itransitionproject.dao.ThingOfClientDAOImpl" />
-    <bean id="userDAO" class="com.itransition.itransitionproject.dao.UserDAOImpl" />
-    
-    <bean id="comboPropertiesService" class="com.itransition.itransitionproject.service.ComboPropertiesServiceImpl" />
-    <bean id="schemaService" class="com.itransition.itransitionproject.service.SchemaServiceImpl" />
-    <bean id="thingOfClientService" class="com.itransition.itransitionproject.service.ThingOfClientServiceImpl" />
-    <bean id="thingService" class="com.itransition.itransitionproject.service.ThingServiceImpl" />
-    <bean id="userDetailsService" class="com.itransition.itransitionproject.service.UserDetailsServiceImpl" />
-    <bean id="userService" class="com.itransition.itransitionproject.service.UserServiceImpl" />
-
-    <bean name="/login.htm" class="com.itransition.itransitionproject.controllers.LoginController" />
-    <bean name="/main.htm" class="com.itransition.itransitionproject.controllers.MainController" />
-    <bean name="/page.htm" class="com.itransition.itransitionproject.controllers.PageController" />
         
-       
-
 </beans>    

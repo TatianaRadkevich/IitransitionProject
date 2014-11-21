@@ -9,6 +9,7 @@ import com.itransition.itransitionproject.entity.SchemasOfUsers;
 import com.itransition.itransitionproject.entity.Thing;
 import com.itransition.itransitionproject.entity.ThingOfClient;
 import com.itransition.itransitionproject.entity.User;
+import com.itransition.itransitionproject.service.ThingOfClientServiceImpl;
 import com.itransition.itransitionproject.util.HibernateUtil;
 
 @Service
@@ -56,6 +57,12 @@ public class App {
 		session.beginTransaction();
 		List<User> userList = (List<User>)session.createQuery("from User").list();
 		session.getTransaction().commit();
+		
+		List<ThingOfClient> list = new ThingOfClientServiceImpl().search("HELLO");
+		
+		for (ThingOfClient thing2 : list) {
+			System.err.println(thing2);
+		}
 		
 		for (User usr : userList) {
 			System.err.println(usr.getEmail());			

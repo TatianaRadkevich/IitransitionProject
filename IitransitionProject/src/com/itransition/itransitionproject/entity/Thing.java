@@ -17,8 +17,28 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.apache.solr.analysis.LowerCaseFilterFactory;
+import org.apache.solr.analysis.SnowballPorterFilterFactory;
+import org.apache.solr.analysis.StandardTokenizerFactory;
+import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.AnalyzerDef;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.Parameter;
+import org.hibernate.search.annotations.TokenFilterDef;
+import org.hibernate.search.annotations.TokenizerDef;
+
 @Entity
 @Table(name = "things", catalog = "database")
+@Indexed
+@AnalyzerDef(name = "thinganalyzer",
+  tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class),
+  filters = {
+    @TokenFilterDef(factory = LowerCaseFilterFactory.class),
+    @TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {
+      @Parameter(name = "language", value = "Russian")
+    })
+  })
 public class Thing implements java.io.Serializable {
 
 	@Id
@@ -26,6 +46,8 @@ public class Thing implements java.io.Serializable {
 	@Column(name = "ID_THING", unique = true, nullable = false)
 	private Integer thingId;
 	
+	@Field
+	@Analyzer(definition = "thinganalyzer")
 	@Column(name = "NAME_THING", nullable = false, length = 10)
 	private String name_thing;
 	

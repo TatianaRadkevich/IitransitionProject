@@ -17,8 +17,28 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.apache.solr.analysis.LowerCaseFilterFactory;
+import org.apache.solr.analysis.SnowballPorterFilterFactory;
+import org.apache.solr.analysis.StandardTokenizerFactory;
+import org.hibernate.search.annotations.Analyzer;
+import org.hibernate.search.annotations.AnalyzerDef;
+import org.hibernate.search.annotations.Field;
+import org.hibernate.search.annotations.Indexed;
+import org.hibernate.search.annotations.Parameter;
+import org.hibernate.search.annotations.TokenFilterDef;
+import org.hibernate.search.annotations.TokenizerDef;
+
 @Entity
 @Table(name = "schemas_of_users")
+@Indexed
+@AnalyzerDef(name = "schemaanalyzer",
+  tokenizer = @TokenizerDef(factory = StandardTokenizerFactory.class),
+  filters = {
+    @TokenFilterDef(factory = LowerCaseFilterFactory.class),
+    @TokenFilterDef(factory = SnowballPorterFilterFactory.class, params = {
+      @Parameter(name = "language", value = "Russian")
+    })
+  })
 public class SchemasOfUsers {
 	
 	@Id
@@ -27,6 +47,8 @@ public class SchemasOfUsers {
     private Integer id;
 	
 	@Column(name = "NAME_SCHEMA")
+	@Field
+	@Analyzer(definition = "schemaanalyzer")
 	private String name;
 	
 	@Column(name = "PARAM_SCHEMA")

@@ -7,8 +7,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.itransition.itransitionproject.dao.interfaces.ThingOfClientDAO;
+import com.itransition.itransitionproject.entity.SchemasOfUsers;
 import com.itransition.itransitionproject.entity.ThingOfClient;
 import com.itransition.itransitionproject.service.interfaces.ThingOfClientService;
+import com.itransition.itransitionproject.util.SearchUtil;
 
 @Service
 public class ThingOfClientServiceImpl implements ThingOfClientService {
@@ -40,5 +42,9 @@ public class ThingOfClientServiceImpl implements ThingOfClientService {
 		thingOfClientDAO.removeThingOfClient(id);
 		
 	}
+	
+	public List<ThingOfClient> search(String match) {
+    	return SearchUtil.search(ThingOfClient.class, "listValue", match);
+    }
 }
 

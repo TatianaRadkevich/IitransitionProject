@@ -7,9 +7,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.itransition.itransitionproject.dao.interfaces.ThingDAO;
+import com.itransition.itransitionproject.entity.SchemasOfUsers;
 import com.itransition.itransitionproject.entity.Thing;
 import com.itransition.itransitionproject.entity.User;
 import com.itransition.itransitionproject.service.interfaces.ThingService;
+import com.itransition.itransitionproject.util.SearchUtil;
 
 @Service
 public class ThingServiceImpl implements ThingService {
@@ -35,5 +37,9 @@ public class ThingServiceImpl implements ThingService {
     @Transactional
     public void removeThing(Integer id) {
     	thingDAO.removeThing(id);
+    }
+    
+    public List<Thing> search(String match) {
+    	return SearchUtil.<Thing>search(Thing.class, "name_thing", match);
     }
 }

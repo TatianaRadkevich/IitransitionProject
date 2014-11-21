@@ -2,8 +2,8 @@ package com.itransition.itransitionproject.dao;
 
 import java.util.List;
 
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.itransition.itransitionproject.dao.interfaces.ThingOfClientDAO;
@@ -17,7 +17,10 @@ public class ThingOfClientDAOImpl implements ThingOfClientDAO{
     
 	@Override
 	public void addThingOfClient(ThingOfClient thingOfClient) {
-		sessionFactory.getCurrentSession().save(thingOfClient);
+		Session session = sessionFactory.openSession();
+		session.beginTransaction();
+		session.save(thingOfClient);
+		session.getTransaction().commit();
 	}
 
 	@Override
