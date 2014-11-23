@@ -35,5 +35,19 @@ public class ComboPropertiesServiceImpl implements ComboPropertiesService {
     public void removeComboProperties(Integer id) {
     	comboPropertiesDAO.removeComboProperties(id);
     }
+
+	/**
+	 * @return the comboPropertiesDAO
+	 */
+	public ComboPropertiesDAO getComboPropertiesDAO() {
+		return comboPropertiesDAO;
+	}
+
+	/**
+	 * @param comboPropertiesDAO the comboPropertiesDAO to set
+	 */
+	public void setComboPropertiesDAO(ComboPropertiesDAO comboPropertiesDAO) {
+		this.comboPropertiesDAO = comboPropertiesDAO;
+	}
 }
 

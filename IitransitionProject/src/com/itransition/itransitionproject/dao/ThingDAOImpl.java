@@ -10,12 +10,12 @@ import org.springframework.transaction.annotation.Transactional;
 import com.itransition.itransitionproject.dao.interfaces.ThingDAO;
 import com.itransition.itransitionproject.entity.Thing;
 import com.itransition.itransitionproject.entity.User;
-import com.itransition.itransitionproject.util.HibernateUtil;
 
 @Repository
 public class ThingDAOImpl extends BaseDAOImpl implements ThingDAO{
 
-	private SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+	@Autowired
+	private SessionFactory sessionFactory;
 	
     public void addThingByUser(Thing thing, User user) {
     	super.addElement(thing);

@@ -4,16 +4,17 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.itransition.itransitionproject.dao.interfaces.ThingOfClientDAO;
 import com.itransition.itransitionproject.entity.ThingOfClient;
-import com.itransition.itransitionproject.util.HibernateUtil;
 
 @Repository
 public class ThingOfClientDAOImpl implements ThingOfClientDAO{
 
-	private SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
+	@Autowired
+	private SessionFactory sessionFactory;
     
 	@Override
 	public void addThingOfClient(ThingOfClient thingOfClient) {
@@ -40,5 +41,19 @@ public class ThingOfClientDAOImpl implements ThingOfClientDAO{
         if (null != clientThing) {
             sessionFactory.getCurrentSession().delete(clientThing);
         }
+	}
+
+	/**
+	 * @return the sessionFactory
+	 */
+	public SessionFactory getSessionFactory() {
+		return sessionFactory;
+	}
+
+	/**
+	 * @param sessionFactory the sessionFactory to set
+	 */
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
 	}
 }

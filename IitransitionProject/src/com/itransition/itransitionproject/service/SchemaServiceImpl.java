@@ -40,5 +40,19 @@ public class SchemaServiceImpl implements SchemaService {
     public List<SchemasOfUsers> search(String match) {
     	return SearchUtil.<SchemasOfUsers>search(SchemasOfUsers.class, "name", match);
     }
+
+	/**
+	 * @return the schemaDAO
+	 */
+	public SchemaDAO getSchemaDAO() {
+		return schemaDAO;
+	}
+
+	/**
+	 * @param schemaDAO the schemaDAO to set
+	 */
+	public void setSchemaDAO(SchemaDAO schemaDAO) {
+		this.schemaDAO = schemaDAO;
+	}
 }
 

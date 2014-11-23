@@ -46,5 +46,19 @@ public class ThingOfClientServiceImpl implements ThingOfClientService {
 	public List<ThingOfClient> search(String match) {
     	return SearchUtil.search(ThingOfClient.class, "listValue", match);
     }
+
+	/**
+	 * @return the thingOfClientDAO
+	 */
+	public ThingOfClientDAO getThingOfClientDAO() {
+		return thingOfClientDAO;
+	}
+
+	/**
+	 * @param thingOfClientDAO the thingOfClientDAO to set
+	 */
+	public void setThingOfClientDAO(ThingOfClientDAO thingOfClientDAO) {
+		this.thingOfClientDAO = thingOfClientDAO;
+	}
 }
 

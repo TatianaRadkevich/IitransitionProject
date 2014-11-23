@@ -42,4 +42,18 @@ public class ThingServiceImpl implements ThingService {
     public List<Thing> search(String match) {
     	return SearchUtil.<Thing>search(Thing.class, "name_thing", match);
     }
+
+	/**
+	 * @return the thingDAO
+	 */
+	public ThingDAO getThingDAO() {
+		return thingDAO;
+	}
+
+	/**
+	 * @param thingDAO the thingDAO to set
+	 */
+	public void setThingDAO(ThingDAO thingDAO) {
+		this.thingDAO = thingDAO;
+	}
 }
