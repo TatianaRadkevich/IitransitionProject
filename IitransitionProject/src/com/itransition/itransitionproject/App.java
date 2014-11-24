@@ -42,6 +42,7 @@ public class App {
 		user.setPassword("password");
 
 		Thing thing = new Thing("name", "properties", "image");
+		System.err.println(thing.getThingId());
 		thing.setUser(user);
 
 		ThingOfClient thingOfClient = new ThingOfClient();
@@ -72,7 +73,7 @@ public class App {
 				.list();
 		session.getTransaction().commit();
 
-		List<ThingOfClient> list = new ThingOfClientServiceImpl()
+		/*List<ThingOfClient> list = new ThingOfClientServiceImpl()
 				.search("hello");
 
 		for (ThingOfClient thing2 : list) {
@@ -80,7 +81,7 @@ public class App {
 					.println("--------------------------------------------------------------------"
 							+ thing2);
 		}
-
+*/
 		for (User usr : userList) {
 			System.err.println(user.getEmail());
 			System.err.println(user.getThings());
