@@ -2,52 +2,27 @@ package com.itransition.itransitionproject.dao;
 
 import java.util.List;
 
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.itransition.itransitionproject.dao.interfaces.ComboPropertiesDAO;
 import com.itransition.itransitionproject.entity.ComboProperties;
 
 @Repository
-public class ComboPropertiesDAOImpl implements ComboPropertiesDAO {
-
-	@Autowired
-    private SessionFactory sessionFactory;
+public class ComboPropertiesDAOImpl extends BaseDAOImpl implements ComboPropertiesDAO {
 
     public void addComboProperties(ComboProperties comboProperties) {
-        sessionFactory.getCurrentSession().save(comboProperties);
+        super.addElement(comboProperties);
     }
     
     public ComboProperties getComboProperties(Integer id) {
-    	return (ComboProperties) sessionFactory.getCurrentSession().load(ComboProperties.class, id);
+    	return (ComboProperties) super.getRecordById(ComboProperties.class, id);
     }
 
-    @SuppressWarnings("unchecked")
     public List<ComboProperties> listComboProperties() {
-    	return sessionFactory.getCurrentSession().createQuery("from ComboProperties").list();
+    	return super.<ComboProperties> getAllRecords("from ComboProperties");
     }
 
-    public void removeComboProperties(Integer id) {
-    	ComboProperties comboProperties = (ComboProperties) sessionFactory.getCurrentSession().load(
-    			ComboProperties.class, id);
-        if (null != comboProperties) {
-            sessionFactory.getCurrentSession().delete(comboProperties);
-        }
-
+    public void removeComboProperties(Integer id) {    	
+    	super.removeObject(ComboProperties.class, id);
     }
-
-	/**
-	 * @return the sessionFactory
-	 */
-	public SessionFactory getSessionFactory() {
-		return sessionFactory;
-	}
-
-	/**
-	 * @param sessionFactory the sessionFactory to set
-	 */
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
-	}
 }

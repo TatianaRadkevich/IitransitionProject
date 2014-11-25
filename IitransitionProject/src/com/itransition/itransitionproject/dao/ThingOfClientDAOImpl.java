@@ -2,58 +2,31 @@ package com.itransition.itransitionproject.dao;
 
 import java.util.List;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.itransition.itransitionproject.dao.interfaces.ThingOfClientDAO;
 import com.itransition.itransitionproject.entity.ThingOfClient;
 
 @Repository
-public class ThingOfClientDAOImpl implements ThingOfClientDAO{
-
-	@Autowired
-	private SessionFactory sessionFactory;
+public class ThingOfClientDAOImpl extends BaseDAOImpl implements ThingOfClientDAO{
     
 	@Override
 	public void addThingOfClient(ThingOfClient thingOfClient) {
-		Session session = sessionFactory.openSession();
-		session.beginTransaction();
-		session.save(thingOfClient);
-		session.getTransaction().commit();
+		super.addElement(thingOfClient);
 	}
 
 	@Override
 	public ThingOfClient getThingOfClient(Integer id) {
-		return (ThingOfClient) sessionFactory.getCurrentSession().load(ThingOfClient.class, id);
+		return (ThingOfClient) super.getRecordById(ThingOfClient.class, id);
 	}
 
 	@Override
 	public List<ThingOfClient> listThingOfClient() {
-		return sessionFactory.getCurrentSession().createQuery("from ThingOfClient").list();
+		return super.<ThingOfClient>getAllRecords("from ThingOfClient");
 	}
 
 	@Override
 	public void removeThingOfClient(Integer id) {
-		ThingOfClient clientThing = (ThingOfClient) sessionFactory.getCurrentSession().load(
-    			ThingOfClient.class, id);
-        if (null != clientThing) {
-            sessionFactory.getCurrentSession().delete(clientThing);
-        }
-	}
-
-	/**
-	 * @return the sessionFactory
-	 */
-	public SessionFactory getSessionFactory() {
-		return sessionFactory;
-	}
-
-	/**
-	 * @param sessionFactory the sessionFactory to set
-	 */
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
+		super.removeObject(ThingOfClient.class, id);
 	}
 }

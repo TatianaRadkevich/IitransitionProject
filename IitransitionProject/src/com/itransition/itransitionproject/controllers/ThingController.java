@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,6 +38,9 @@ public class ThingController {
 		model.addObject("title", "Add your own thing! (only for Owners)");
 		model.addObject("message", "Let's try to add something, little boy!");
 		model.setViewName("thing");
+		List<Thing> list = thingService.listThing();
+		for (Thing thing : list)
+			thingService.removeThing(thing.getThingId());
 		return model;
 
 	}

@@ -2,14 +2,19 @@ package com.itransition.itransitionproject.dao.interfaces;
 
 import java.util.List;
 
-import org.hibernate.Session;
-
 public interface BaseDAO {
+	
 	public Object getRecordById(Class classObject, Integer id);
 
 	public void addElement(Object object);
 
-	public List<Object> getAllRecords(String queryStr);
+	public <T> List<T> getAllRecords(String queryStr);
 	
 	public void updateObject(Object object);
+	
+	public void removeObject(Class classObject, Integer id);
+	
+	public void executeQuery(String string);
+	
+	public Object getByQuery(String string, String nameParameter, Object parameter);
 }
