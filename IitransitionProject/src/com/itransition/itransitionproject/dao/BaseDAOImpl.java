@@ -18,23 +18,31 @@ public class BaseDAOImpl implements BaseDAO {
 	@Override
 	public Object getRecordById(Class classObject, Integer id) {
 		Object obj = getSession().get(classObject, id);
+		session.flush();
+		session.close();
 		return obj;
 	}
 
 	@Override
 	public void addElement(Object object) {
 		getSession().save(object);
+		session.flush();
+		session.close();
 	}
 
 	@Override
 	public <T> List<T> getAllRecords(String queryStr) {
 		List<T> list = getSession().createQuery(queryStr).list();
+		session.flush();
+		session.close();
 		return list;
 	}
 	
 	@Override
 	public void updateObject(Object object) {
 		getSession().update(object);
+		session.flush();
+		session.close();
 	}
 	
 	@Override
@@ -42,12 +50,16 @@ public class BaseDAOImpl implements BaseDAO {
 		Object obj = getRecordById(classObject, id);
         if (null != obj) {
         	getSession().delete(obj);
+        	session.flush();
+    		session.close();
         }
 	}
 	
 	@Override
 	public void executeQuery(String query) {
 		getSession().createQuery(query).executeUpdate();
+		session.flush();
+		session.close();
 	}
 	
 	@Override
@@ -55,6 +67,8 @@ public class BaseDAOImpl implements BaseDAO {
 		Query query = getSession().createQuery(string);
 		query.setParameter(nameParameter, parameter);
 		List<Object> list = query.list();
+		session.flush();
+		session.close();
 		if (null == list || list.isEmpty())
 			return null;
 		return list.get(0);
