@@ -32,7 +32,6 @@
 	</bean>
 	<bean id="userDAO" class="com.itransition.itransitionproject.dao.UserDAOImpl">
 		<property name="sessionFactory" ref="sessionFactory" />
-		<property name="baseDAO" ref="baseDAO" />
 	</bean>
 	<bean id="comboPropertiesDAO"
 		class="com.itransition.itransitionproject.dao.ComboPropertiesDAOImpl">
