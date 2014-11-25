@@ -21,6 +21,7 @@
     	<mapping class="com.itransition.itransitionproject.entity.SchemasOfUsers" />
     	<mapping class="com.itransition.itransitionproject.entity.Thing" />
     	<mapping class="com.itransition.itransitionproject.entity.ThingOfClient" />
+    	<mapping class="com.itransition.itransitionproject.entity.TemplateTable" />
 	</session-factory>
 	
 	

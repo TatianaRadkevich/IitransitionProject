@@ -8,6 +8,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.itransition.itransitionproject.dao.interfaces.UserDAO;
 import com.itransition.itransitionproject.dao.BaseDAOImpl;
@@ -28,9 +29,11 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 
 	@Override
 	public void addUser(User user) {
-		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		user.setPassword(encoder.encode(user.getPassword()));
-		baseDAO.addElement(user);
+		if (getUserByEmail(user.getEmail()) == null) {
+			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+			user.setPassword(encoder.encode(user.getPassword()));
+			baseDAO.addElement(user);
+		}
 	}
 
 	@Override
@@ -39,39 +42,30 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 	}
 
 	@Override
-	public User getUserByEmailAndPassword(String email, String password) {
-		Query query = getSessionFactory().getCurrentSession().createQuery(
-				SELECT_USER_BY_EMAIL_AND_PASS);
-		query.setParameter("email", email);
-		query.setParameter("password", password);
-		return (User) query.list().get(0);
-	}
-
-	@Override
+	@Transactional
 	public List<User> listUser() {
-		return getSessionFactory().getCurrentSession()
-				.createQuery(SELECT_ALL_FROM_USER).list();
+		Session session = getSessionFactory().openSession();
+		List<User> list = session.createQuery(SELECT_ALL_FROM_USER).list();
+		session.flush();
+		session.close();
+		return list;
 	}
 
 	@Override
-	public void removeUserById(Integer id) {
-		super.removeElementById(id, User.class);
-	}
-
-	@Override
-	public void removeUser(User user) {
-		super.removeElement(user);
-	}
-
-	@Override
+	@Transactional
 	public User getUserByEmail(String email) {
-		System.err.println("get User y email!!! email = " + email);
-		Query query = getSessionFactory().openSession().createQuery(
-				SELECT_USER_BY_EMAIL);
+		Session session = getSessionFactory().openSession();
+		Query query = session.createQuery(SELECT_USER_BY_EMAIL);
 		query.setParameter("email", email);
-		User user = (User) query.list().get(0);
-		System.err.println("get user = " + user);
-		return (User) query.list().get(0);
+		User user = null;
+		try{
+			user = (User)query.list().get(0);
+		}catch(IndexOutOfBoundsException e){
+			
+		}
+		session.flush();
+		session.close();
+		return user;
 	}
 
 	/**
@@ -102,5 +96,20 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 	 */
 	public void setBaseDAO(BaseDAO baseDAO) {
 		this.baseDAO = baseDAO;
+	}
+
+	@Override
+	@Transactional
+	public void removeUser(String email) {
+		Session session = getSessionFactory().openSession();
+		session.createQuery("delete User where email = " + email)
+				.executeUpdate();
+		session.flush();
+		session.close();
+	}
+
+	@Override
+	public void updateUser(User user) {
+		super.updateObject(user);
 	}
 }

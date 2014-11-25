@@ -19,29 +19,19 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public User getUserByEmailAndPass(String email, String password) {
-		return userDAO.getUserByEmailAndPassword(email, password);
-	}
-
-	@Override
 	public void addUser(User user) {
 		userDAO.addUser(user);
 	}
 
-	@Override
-	public void remoteUser(Integer id) {
-		userDAO.removeUserById(id);
-	}
 
 	@Override
 	public void remoteUserByEmail(String email) {
-		// TODO Auto-generated method stub
-
+		userDAO.removeUser(email);
 	}
 
 	@Override
 	public void updateUser(User user) {
-		// userDAO
+		userDAO.updateUser(user);
 	}
 
 	@Override

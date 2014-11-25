@@ -8,11 +8,7 @@ public interface UserService {
 
 	public User getUser(String email);
     
-    public User getUserByEmailAndPass(String email, String password);
-    
     public void addUser(User user);
-    
-    public void remoteUser(Integer id);
     
     public void remoteUserByEmail(String email);
     

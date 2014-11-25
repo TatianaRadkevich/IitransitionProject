@@ -50,7 +50,7 @@ public class RoleUser {
 	/**
 	 * @return the user
 	 */
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "ID_USER", nullable = false)
 	public User getUser() {
 		return user;

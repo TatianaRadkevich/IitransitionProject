@@ -9,9 +9,7 @@ public interface BaseDAO {
 
 	public void addElement(Object object);
 
-	public void removeElement(Object object);
-	
-	public void removeElementById(Integer id, Class classObject);
-	
 	public List<Object> getAllRecords(String queryStr);
+	
+	public void updateObject(Object object);
 }

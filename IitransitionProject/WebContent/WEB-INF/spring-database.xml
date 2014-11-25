@@ -1,106 +1,124 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
-    xmlns:tx="http://www.springframework.org/schema/tx" xmlns:p="http://www.springframework.org/schema/p"
-    xsi:schemaLocation="http://www.springframework.org/schema/beans
-    http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
-    http://www.springframework.org/schema/aop 
-    http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
-    http://www.springframework.org/schema/tx
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:p="http://www.springframework.org/schema/p"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+	http://www.springframework.org/schema/beans/spring-beans-3.0.xsd 
+	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+	http://www.springframework.org/schema/tx
     http://www.springframework.org/schema/tx/spring-tx-3.0.xsd">
 
-    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
-        destroy-method="close">
-        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
-        <property name="url" value="jdbc:mysql://localhost:3306/database" />
-        <property name="username" value="root" />
-        <property name="password" value="root" />
-    </bean>
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/database" />
+		<property name="username" value="root" />
+		<property name="password" value="root" />
+	</bean>
 
-    <bean id="sessionFactory"
-        class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"
-        p:dataSource-ref="dataSource" p:configLocation="/WEB-INF/hibernate.cfg.xml"
-        p:packagesToScan="com.itransition.itransitionproject" />
+	<!-- <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"> 
+		<property name="dataSource" ref="dataSource" /> <property name="mappingResources"> 
+		<list> <value>/WEB-INF/hibernate.cfg.xml</value> </list> </property> <property 
+		name="hibernateProperties"> <value> hibernate.dialect=org.hibernate.dialect.MySQL5Dialect 
+		</value> </property> </bean> -->
 
-    <!-- <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"> 
-        <property name="dataSource" ref="dataSource" /> <property name="hibernateProperties"> 
-        <props> <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop> 
-        <prop key="hibernate.format_sql">true</prop> <prop key="hibernate.show_sql">true</prop> 
-        </props> </property> </bean> -->
-        
-    <bean id="baseDAO" class="com.itransition.itransitionproject.dao.BaseDAOImpl">
-        <property name="sessionFactory" ref="sessionFactory" />
-    </bean>
-    <bean id="userDAO" class="com.itransition.itransitionproject.dao.UserDAOImpl">
-        <property name="sessionFactory" ref="sessionFactory" />
-        <property name="baseDAO" ref="baseDAO" />
-    </bean>
-    <bean id="comboPropertiesDAO" class="com.itransition.itransitionproject.dao.ComboPropertiesDAOImpl">
-        <property name="sessionFactory" ref="sessionFactory" />
-    </bean>
-    <bean id="schemaDAO" class="com.itransition.itransitionproject.dao.SchemaDAOImpl">
-        <property name="sessionFactory" ref="sessionFactory" />
-    </bean>
-    <bean id="thingOfClientDAO" class="com.itransition.itransitionproject.dao.ThingOfClientDAOImpl">
-        <property name="sessionFactory" ref="sessionFactory" />
-    </bean>
-    <bean id="thingDAO" class="com.itransition.itransitionproject.dao.ThingDAOImpl">
-        <property name="sessionFactory" ref="sessionFactory" />
-    </bean>
+	<bean id="sessionFactory"
+		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"
+		p:dataSource-ref="dataSource" p:configLocation="/WEB-INF/hibernate.cfg.xml"
+		p:packagesToScan="com.itransition.itransitionproject" />
+
+	<bean id="baseDAO" class="com.itransition.itransitionproject.dao.BaseDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="userDAO" class="com.itransition.itransitionproject.dao.UserDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+		<property name="baseDAO" ref="baseDAO" />
+	</bean>
+	<bean id="comboPropertiesDAO"
+		class="com.itransition.itransitionproject.dao.ComboPropertiesDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="schemaDAO" class="com.itransition.itransitionproject.dao.SchemaDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="thingOfClientDAO"
+		class="com.itransition.itransitionproject.dao.ThingOfClientDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="thingDAO" class="com.itransition.itransitionproject.dao.ThingDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="templateDAO" class="com.itransition.itransitionproject.dao.TemplateDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
+	<bean id="roleUserDAO" class="com.itransition.itransitionproject.dao.RoleUserDAOImpl">
+		<property name="sessionFactory" ref="sessionFactory" />
+	</bean>
 
 
-    <bean id="userService"
-        class="com.itransition.itransitionproject.service.UserServiceImpl">
-        <property name="userDAO" ref="userDAO" />
-    </bean>
-    <bean id="userSecurityService"
-        class="com.itransition.itransitionproject.service.UserSecurityServiceImpl">
-        <property name="userDAO" ref="userDAO" />
-    </bean>
-    <bean id="comboPropertiesService"
-        class="com.itransition.itransitionproject.service.ComboPropertiesServiceImpl">
-        <property name="comboPropertiesDAO" ref="comboPropertiesDAO" />
-    </bean>
-    <bean id="schemaService"
-        class="com.itransition.itransitionproject.service.SchemaServiceImpl">
-        <property name="schemaDAO" ref="schemaDAO" />
-    </bean>
-    <bean id="thingOfClientService"
-        class="com.itransition.itransitionproject.service.ThingOfClientServiceImpl">
-        <property name="thingOfClientDAO" ref="thingOfClientDAO" />
-    </bean>
-    <bean id="thingService"
-        class="com.itransition.itransitionproject.service.ThingServiceImpl">
-        <property name="thingDAO" ref="thingDAO" />
-    </bean>
-    
-    <bean id="userController"
-        class="com.itransition.itransitionproject.controllers.UserController">
-        <property name="userService" ref="userService"></property>
-    </bean>
-    
-    <bean id="thingController"
-        class="com.itransition.itransitionproject.controllers.ThingController">
-        <property name="thingService" ref="thingService"></property>
-        <property name="userService" ref="userService"></property>
-    </bean>
+	<bean id="userService"
+		class="com.itransition.itransitionproject.service.UserServiceImpl">
+		<property name="userDAO" ref="userDAO" />
+	</bean>
+	<bean id="userSecurityService"
+		class="com.itransition.itransitionproject.service.UserSecurityServiceImpl">
+		<property name="userDAO" ref="userDAO" />
+	</bean>
+	<bean id="comboPropertiesService"
+		class="com.itransition.itransitionproject.service.ComboPropertiesServiceImpl">
+		<property name="comboPropertiesDAO" ref="comboPropertiesDAO" />
+	</bean>
+	<bean id="schemaService"
+		class="com.itransition.itransitionproject.service.SchemaServiceImpl">
+		<property name="schemaDAO" ref="schemaDAO" />
+	</bean>
+	<bean id="thingOfClientService"
+		class="com.itransition.itransitionproject.service.ThingOfClientServiceImpl">
+		<property name="thingOfClientDAO" ref="thingOfClientDAO" />
+	</bean>
+	<bean id="thingService"
+		class="com.itransition.itransitionproject.service.ThingServiceImpl">
+		<property name="thingDAO" ref="thingDAO" />
+	</bean>
+	<bean id="templateService"
+		class="com.itransition.itransitionproject.service.TemplateServiceImpl">
+		<property name="templateDAO" ref="templateDAO" />
+	</bean>
+	<bean id="roleUserService"
+		class="com.itransition.itransitionproject.service.RoleUserServiceImpl">
+		<property name="roleUserDAO" ref="roleUserDAO" />
+	</bean>
 
-    <bean id="transactionManager"
-        class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-        <property name="sessionFactory" ref="sessionFactory"></property>
-    </bean>
+	<bean id="userController"
+		class="com.itransition.itransitionproject.controllers.UserController">
+		<property name="userService" ref="userService"></property>
+		<property name="templateService" ref="templateService"></property>
+		<property name="roleUserService" ref="roleUserService"></property>
+	</bean>
 
-    <tx:advice id="txAdvice" transaction-manager="transactionManager">
-        <tx:attributes>
-            <tx:method name="get*" read-only="true" />
-            <tx:method name="find*" read-only="true" />
-            <tx:method name="*" />
-        </tx:attributes>
-    </tx:advice>
+	<bean id="thingController"
+		class="com.itransition.itransitionproject.controllers.ThingController">
+		<property name="thingService" ref="thingService"></property>
+		<property name="userService" ref="userService"></property>
+	</bean>
 
-    <aop:config>
-        <aop:pointcut id="userServicePointCut"
-            expression="execution(* com.itransition.itransitionproject.service.*Service.*(..))" />
-        <aop:advisor advice-ref="txAdvice" pointcut-ref="userServicePointCut" />
-    </aop:config>
+	<bean id="transactionManager"
+		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+		<property name="sessionFactory" ref="sessionFactory"></property>
+	</bean>
+
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="get*" read-only="true" />
+			<tx:method name="find*" read-only="true" />
+			<tx:method name="*" />
+		</tx:attributes>
+	</tx:advice>
+
+	<aop:config>
+		<aop:pointcut id="userServicePointCut"
+			expression="execution(* com.itransition.itransitionproject.service.*Service.*(..))" />
+		<aop:advisor advice-ref="txAdvice" pointcut-ref="userServicePointCut" />
+	</aop:config>
 
 </beans>

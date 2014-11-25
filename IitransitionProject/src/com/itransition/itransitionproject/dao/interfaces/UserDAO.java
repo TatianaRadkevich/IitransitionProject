@@ -12,14 +12,11 @@ public interface UserDAO {
 		
 		public User getUserById(Integer id);
 		
-		public User getUserByEmailAndPassword(String email, String password);
-		
 		public User getUserByEmail(String email);
 		
 		public List<User> listUser();
 		
-		public void removeUserById(Integer id);
+		public void removeUser(String email);
 		
-		public void removeUser(User user);
-
+		public void updateUser(User user);
 }

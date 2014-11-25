@@ -2,6 +2,7 @@ package com.itransition.itransitionproject;
 
 import java.util.List;
 
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.itransition.itransitionproject.entity.SchemasOfUsers;
+import com.itransition.itransitionproject.entity.TemplateTable;
 import com.itransition.itransitionproject.entity.Thing;
 import com.itransition.itransitionproject.entity.ThingOfClient;
 import com.itransition.itransitionproject.entity.User;
@@ -34,7 +36,7 @@ public class App {
 				configuration.getProperties()).buildServiceRegistry();
 		sessionFactory = configuration.buildSessionFactory(serviceRegistry);
 		Session session = sessionFactory.openSession();
-		System.err.println("сессия не пуста!!! = " + session);
+		/*System.err.println("сессия не пуста!!! = " + session);
 
 		User user = new User();
 		user.setNameUser("userAlexandr");
@@ -54,7 +56,7 @@ public class App {
 		schema.setName("aaaa");
 		schema.setCountUsers(12);
 		schema.setSumRaiting(100);
-		schema.setParameters("HAHAH");
+		schema.setParameters("папа");
 		schema.setUser(user);
 		schema.addClientThing(thingOfClient);
 
@@ -73,20 +75,27 @@ public class App {
 				.list();
 		session.getTransaction().commit();
 
-		/*List<ThingOfClient> list = new ThingOfClientServiceImpl()
-				.search("hello");
+		List<ThingOfClient> list = new ThingOfClientServiceImpl()
+				.search("привет");
 
 		for (ThingOfClient thing2 : list) {
 			System.err
 					.println("--------------------------------------------------------------------"
 							+ thing2);
 		}
-*/
+		
 		for (User usr : userList) {
 			System.err.println(user.getEmail());
 			System.err.println(user.getThings());
 			System.err.println(user.getClientThings());
-		}
+		}*/
+		session.beginTransaction();
+		TemplateTable table = new TemplateTable();
+		table.setId_table(14);
+		Query q = session.createQuery("delete TemplateTable where id_table = :id");
+		q.setParameter("id", table.getId_table());
+		q.executeUpdate();
+		session.getTransaction().commit();
 		session.close();
 		System.out.println("Done");
 	}
