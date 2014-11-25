@@ -54,8 +54,9 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 	@Override
 	@Transactional
 	public User getUserByEmail(String email) {
-		Session session = getSessionFactory().openSession();
+	Session session = getSessionFactory().openSession();
 		Query query = session.createQuery(SELECT_USER_BY_EMAIL);
+	//	Query query = sessionFactory.getCurrentSession().createQuery(SELECT_USER_BY_EMAIL);
 		query.setParameter("email", email);
 		User user = null;
 		try{
@@ -102,7 +103,7 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 	@Transactional
 	public void removeUser(String email) {
 		Session session = getSessionFactory().openSession();
-		session.createQuery("delete User where email = " + email)
+		session.createQuery("delete User where email = " + email) 
 				.executeUpdate();
 		session.flush();
 		session.close();

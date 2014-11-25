@@ -61,5 +61,6 @@ public class BaseDAOImpl implements BaseDAO {
 		session.update(object);
 		session.flush();
 		session.close();
+	//	sessionFactory.getCurrentSession().update(object);
 	}
 }
