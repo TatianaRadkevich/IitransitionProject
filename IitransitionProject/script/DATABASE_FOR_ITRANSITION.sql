@@ -80,6 +80,19 @@ CREATE TABLE IF NOT EXISTS `schemas_of_users` (
 -- Data exporting was unselected.
 
 
+-- Dumping structure for table database.template_table
+CREATE TABLE IF NOT EXISTS `template_table` (
+  `ID_TEMPLATE` int(11) NOT NULL AUTO_INCREMENT,
+  `ID_USER` int(11) NOT NULL,
+  `TEMPLATE_CODE` text,
+  PRIMARY KEY (`ID_TEMPLATE`,`ID_USER`),
+  KEY `FK__users` (`ID_USER`),
+  CONSTRAINT `FK__users` FOREIGN KEY (`ID_USER`) REFERENCES `users` (`ID_USER`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Data exporting was unselected.
+
+
 -- Dumping structure for table database.things
 CREATE TABLE IF NOT EXISTS `things` (
   `ID_THING` int(11) NOT NULL AUTO_INCREMENT,
@@ -125,7 +138,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `DATE` timestamp NULL DEFAULT CURRENT_TIMESTAMP,
   `PASSWORD` varchar(200) NOT NULL DEFAULT 'password',
   `EMAIL` varchar(100) NOT NULL,
-  `ENABLED` tinyint(4) NOT NULL DEFAULT '1',
+  `ENABLED` tinyint(4) NOT NULL DEFAULT '0',
   PRIMARY KEY (`ID_USER`),
   UNIQUE KEY `EMAIL` (`EMAIL`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -137,11 +150,10 @@ CREATE TABLE IF NOT EXISTS `users` (
 CREATE TABLE IF NOT EXISTS `user_role` (
   `ID_USER_ROLE` int(11) NOT NULL AUTO_INCREMENT,
   `ID_USER` int(11) NOT NULL,
-  `ROLE` varchar(50) NOT NULL DEFAULT 'ROLE_ANONIMYS',
-  PRIMARY KEY (`ID_USER_ROLE`),
-  UNIQUE KEY `ID_USER` (`ID_USER`),
+  `ROLE` varchar(50) NOT NULL DEFAULT 'ROLE_USER',
+  PRIMARY KEY (`ID_USER_ROLE`,`ID_USER`),
   KEY `fk_role_to_user` (`ID_USER`),
-  CONSTRAINT `FK_USER` FOREIGN KEY (`ID_USER`) REFERENCES `users` (`ID_USER`)
+  CONSTRAINT `FK_USER` FOREIGN KEY (`ID_USER`) REFERENCES `users` (`ID_USER`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Data exporting was unselected.
