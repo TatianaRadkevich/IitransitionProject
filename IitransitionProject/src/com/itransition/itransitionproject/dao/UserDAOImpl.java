@@ -11,10 +11,9 @@ import com.itransition.itransitionproject.entity.User;
 
 @Repository
 public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
-	private static final String SELECT_USER_BY_EMAIL_AND_PASS = "from User where email = :email and password = :password ";
 	private static final String SELECT_USER_BY_EMAIL = "from User where email = :email";
 	private static final String SELECT_ALL_FROM_USER = "from User";
-	private static final String REMOVE_BY_EMAIL = "delete User where email = ";
+	private static final String REMOVE_BY_EMAIL = "delete User where email = :email";
 
 	@Override
 	public void addUser(User user) {
@@ -42,11 +41,16 @@ public class UserDAOImpl extends BaseDAOImpl implements UserDAO {
 
 	@Override
 	public void removeUser(String email) {
-		super.executeQuery(REMOVE_BY_EMAIL + email);
+		super.executeQuery(REMOVE_BY_EMAIL, "email", email);
 	}
 
 	@Override
 	public void updateUser(User user) {
 		super.updateObject(user);
+	}
+
+	@Override
+	public void deleteUser(User user) {
+		super.deleteObject(user);
 	}
 }

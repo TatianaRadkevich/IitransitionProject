@@ -7,7 +7,7 @@ public interface TemplateService {
 	
 	public void addRef(User user, String ref);
 	
-	public void remoteRef(User user);
+	public void remoteRef(TemplateTable table);
 	
 	public TemplateTable findRef(String ref);
 }

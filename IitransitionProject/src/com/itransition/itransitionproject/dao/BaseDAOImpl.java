@@ -18,31 +18,33 @@ public class BaseDAOImpl implements BaseDAO {
 	@Override
 	public Object getRecordById(Class classObject, Integer id) {
 		Object obj = getSession().get(classObject, id);
-		session.flush();
-		session.close();
+		
 		return obj;
 	}
 
 	@Override
 	public void addElement(Object object) {
 		getSession().save(object);
-		session.flush();
-		session.close();
+		closeSession();
 	}
 
 	@Override
 	public <T> List<T> getAllRecords(String queryStr) {
 		List<T> list = getSession().createQuery(queryStr).list();
-		session.flush();
-		session.close();
+		closeSession();
 		return list;
 	}
 	
 	@Override
 	public void updateObject(Object object) {
 		getSession().update(object);
-		session.flush();
-		session.close();
+		closeSession();
+	}
+	
+	@Override
+	public void deleteObject(Object object) {
+		getSession().delete(object);
+		closeSession();
 	}
 	
 	@Override
@@ -50,25 +52,23 @@ public class BaseDAOImpl implements BaseDAO {
 		Object obj = getRecordById(classObject, id);
         if (null != obj) {
         	getSession().delete(obj);
-        	session.flush();
-    		session.close();
+        	closeSession();
         }
 	}
 	
 	@Override
-	public void executeQuery(String query) {
-		getSession().createQuery(query).executeUpdate();
-		session.flush();
-		session.close();
+	public void executeQuery(String query, String nameParameter, String parameter) {
+	//	getSession().createQuery(query).setParameter(nameParameter, parameter).executeUpdate();
+		getSession().createQuery(query + parameter).executeUpdate();
+		closeSession();
 	}
 	
 	@Override
-	public Object getByQuery(String string, String nameParameter, Object parameter) {
+	public Object getByQuery(String string, String nameParameter, String parameter) {
 		Query query = getSession().createQuery(string);
 		query.setParameter(nameParameter, parameter);
 		List<Object> list = query.list();
-		session.flush();
-		session.close();
+		closeSession();
 		if (null == list || list.isEmpty())
 			return null;
 		return list.get(0);
@@ -83,8 +83,14 @@ public class BaseDAOImpl implements BaseDAO {
 	}
 	
 	private Session getSession() {
-		if ( session == null || !session.isOpen() || !session.isConnected())//{
+		if ( session == null || !session.isOpen() || !session.isConnected())
 			session = getSessionFactory().openSession();
 		return session;
 	}
+	
+	private void closeSession(){
+		session.flush();
+		session.close();
+	}
+
 }

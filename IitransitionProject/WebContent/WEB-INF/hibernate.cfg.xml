@@ -3,35 +3,18 @@
 "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 
-<!-- <hibernate-configuration>
+<hibernate-configuration>
 	<session-factory>
-        <property name="hibernate.bytecode.use_reflection_optimizer">false</property>
-        <property name="hibernate.current_session_context_class">org.hibernate.context.ThreadLocalSessionContext</property>        
-	 	<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/database</property>
-		<property name="hibernate.connection.username">root</property>
-		<property name="hibernate.connection.password">root</property>
+		<property name="format_sql">true</property>
 		<property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
 		<property name="show_sql">true</property>
-		<property name="format_sql">true</property>
-    	<mapping class="com.itransition.itransitionproject.entity.User" />
+		
+		<mapping class="com.itransition.itransitionproject.entity.User" />
+		<mapping class="com.itransition.itransitionproject.entity.RoleUser" />
+		<mapping class="com.itransition.itransitionproject.entity.ComboProperties" />
+		<mapping class="com.itransition.itransitionproject.entity.SchemasOfUsers" />
+		<mapping class="com.itransition.itransitionproject.entity.Thing" />
+		<mapping class="com.itransition.itransitionproject.entity.ThingOfClient" />
+		<mapping class="com.itransition.itransitionproject.entity.TemplateTable" />
 	</session-factory>
-	
-	
-</hibernate-configuration> -->
-
-
-<hibernate-configuration>
-  <session-factory>
-  <property name="format_sql">true</property>
-    <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
-    <property name="show_sql">true</property>
-    <mapping class="com.itransition.itransitionproject.entity.User" />
-    <mapping class="com.itransition.itransitionproject.entity.RoleUser" />
-    	<mapping class="com.itransition.itransitionproject.entity.ComboProperties" />
-    	<mapping class="com.itransition.itransitionproject.entity.SchemasOfUsers" />
-    	<mapping class="com.itransition.itransitionproject.entity.Thing" />
-    	<mapping class="com.itransition.itransitionproject.entity.ThingOfClient" />
-    	<mapping class="com.itransition.itransitionproject.entity.TemplateTable" />
-  </session-factory>
 </hibernate-configuration>

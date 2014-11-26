@@ -12,9 +12,11 @@ public interface BaseDAO {
 	
 	public void updateObject(Object object);
 	
+	public void deleteObject(Object object);
+	
 	public void removeObject(Class classObject, Integer id);
 	
-	public void executeQuery(String string);
+	public void executeQuery(String string, String nameParameter, String parameter);
 	
-	public Object getByQuery(String string, String nameParameter, Object parameter);
+	public Object getByQuery(String string, String nameParameter, String parameter);
 }

@@ -111,7 +111,7 @@ public class UserController {
 		ModelAndView model = new ModelAndView();
 		TemplateTable table = templateService.findRef(ref);
 		if(table != null){
-			templateService.remoteRef(table.getUser());
+			templateService.remoteRef(table);
 			User user = table.getUser();
 			RoleUser roleUser = new RoleUser(user, "ROLE_USER");
 			roleUserService.addRole(roleUser);

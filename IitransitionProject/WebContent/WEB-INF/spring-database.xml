@@ -16,12 +16,6 @@
 		<property name="password" value="root" />
 	</bean>
 
-	<!-- <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"> 
-		<property name="dataSource" ref="dataSource" /> <property name="mappingResources"> 
-		<list> <value>/WEB-INF/hibernate.cfg.xml</value> </list> </property> <property 
-		name="hibernateProperties"> <value> hibernate.dialect=org.hibernate.dialect.MySQL5Dialect 
-		</value> </property> </bean> -->
-
 	<bean id="sessionFactory"
 		class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"
 		p:dataSource-ref="dataSource" p:configLocation="/WEB-INF/hibernate.cfg.xml"

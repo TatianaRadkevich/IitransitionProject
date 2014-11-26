@@ -22,8 +22,8 @@ public class TemplateServiceImpl implements TemplateService {
 
 
 	@Override
-	public void remoteRef(User user) {
-		
+	public void remoteRef(TemplateTable table) {
+		templateDAO.remoteRef(table);
 	}
 	
 	/**

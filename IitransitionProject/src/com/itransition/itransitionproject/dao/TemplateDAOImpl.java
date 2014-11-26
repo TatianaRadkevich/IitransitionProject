@@ -9,7 +9,6 @@ import com.itransition.itransitionproject.entity.TemplateTable;
 public class TemplateDAOImpl extends BaseDAOImpl implements TemplateDAO {
 
 	private static final String SELECT_REF = "from TemplateTable where ref = :ref";
-	private static final String DELETE_TABLE = "delete TemplateTable where id_table = ";
 	
 	@Override
 	public void addRef(TemplateTable table) {
@@ -18,7 +17,7 @@ public class TemplateDAOImpl extends BaseDAOImpl implements TemplateDAO {
 
 	@Override
 	public void remoteRef(TemplateTable table) {
-		super.executeQuery(DELETE_TABLE + table.getId_table());
+		super.deleteObject(table);
 	}
 
 	@Override

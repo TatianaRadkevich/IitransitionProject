@@ -19,4 +19,6 @@ public interface UserDAO {
 		public void removeUser(String email);
 		
 		public void updateUser(User user);
+		
+		public void deleteUser(User user);
 }
